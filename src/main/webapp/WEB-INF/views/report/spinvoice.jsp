@@ -149,6 +149,18 @@
                                                             </c:forEach>
                                                     </select></td>
                                             </tr>
+                                                 <tr>
+                                                <td>VAS Service</td>
+                                                <td><select style="width: 400px;" name="SERVICE_CODE"
+                                                            id="SERVICE_CODE">
+                                                        <option value=''>Select :</option>
+                                                        <c:forEach var="SER" items="${VASSer_list}">
+                                                            <option value="${SER.SERVICE_CODE}">${SER.DESCRIPTION}
+                                                                ${SER.SERVICE_CODE}</option>
+                                                            </c:forEach>
+                                                    </select>
+                                                </td>
+                                            </tr>
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname"><option value="SpInvoiceRep">VAS Provider Invoice</option>

@@ -104,7 +104,7 @@
                                                     </select>
                                                 </td>
                                             </tr>
-                                            
+        <%--                                    
                                             <tr>
                                                 <td>VAS Service</td>
                                                 <td><select style="width: 400px;" name="SERVICE_CODE"
@@ -116,8 +116,19 @@
                                                             </c:forEach>
                                                     </select>
                                                 </td>
-
-
+                                            </tr>
+        --%>
+                                            <tr>
+                                                <td>VAS Item</td>
+                                                <td><select style="width: 400px;" name="ITEM_CODE"
+                                                            id="ITEM_CODE">
+                                                        <option value=''>Select :</option>
+                                                        <c:forEach var="ITEM" items="${ITEMwotax_list}">
+                                                            <option value="${ITEM.ITEM_CODE}">${ITEM.DESCRIPTION}
+                                                                ${ITEM.ITEM_CODE}</option>
+                                                            </c:forEach>
+                                                    </select>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <c:forEach var="DAT" items="${Date_list}">

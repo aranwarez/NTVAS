@@ -144,39 +144,46 @@ public class ReportController {
 		String filterparam = "";
 
 		if (request.getParameter("TRANS_NO") != null) {
-			filterparam = filterparam + "TRANS_NO : " + request.getParameter("TRANS_NO").toString();
+			filterparam = filterparam + "Trans No. : " + request.getParameter("TRANS_NO").toString();
 			parameters.put("pm_trans_no", request.getParameter("TRANS_NO"));
 		}
 		if (request.getParameter("SP_CODE") != null  && !request.getParameter("SP_CODE").isEmpty()) {
-			filterparam = filterparam + "SP_CODE : " + request.getParameter("SP_CODE").toString();
+			filterparam = filterparam + "SPCode : " + request.getParameter("SP_CODE").toString();
 			parameters.put("pm_sp_code", request.getParameter("SP_CODE"));
 		} else if (request.getParameter("SP_CODE") == null || request.getParameter("SP_CODE").isEmpty()) {
-			filterparam = filterparam + "SP_CODE : All ";
+			filterparam = filterparam + " SPCode : All ";
 			parameters.put("pm_sp_code", request.getParameter("SP_CODE"));
 		}
                 if (request.getParameter("SERVICE_CODE") != null && !request.getParameter("SERVICE_CODE").isEmpty()) {
-			filterparam = filterparam + "SERVICE_CODE : " + request.getParameter("SERVICE_CODE").toString();
+			filterparam = filterparam + " Service : " + request.getParameter("SERVICE_CODE").toString();
 			parameters.put("pm_service", request.getParameter("SERVICE_CODE"));
 		} else if (request.getParameter("SERVICE_CODE") == null || request.getParameter("SERVICE_CODE").isEmpty()) {
-			filterparam = filterparam + "SERVICE_CODE : All ";
+			filterparam = filterparam + " Service : All ";
 			parameters.put("pm_service", request.getParameter("SERVICE_CODE"));
 		}
                 
+                if (request.getParameter("ITEM_CODE") != null && !request.getParameter("ITEM_CODE").isEmpty()) {
+			filterparam = filterparam + " Item : " + request.getParameter("ITEM_CODE").toString();
+			parameters.put("pm_item_code", request.getParameter("ITEM_CODE"));
+		} else if (request.getParameter("ITEM_CODE") == null || request.getParameter("ITEM_CODE").isEmpty()) {
+			filterparam = filterparam + " Item : All ";
+			parameters.put("pm_item_code", request.getParameter("ITEM_CODE"));
+		}
                         
 		if (request.getParameter("FRM_YEAR") != null) {
-			filterparam = filterparam + "FRM_YEAR : " + request.getParameter("FRM_YEAR").toString();
+			filterparam = filterparam + " FromYear : " + request.getParameter("FRM_YEAR").toString();
 			parameters.put("pm_frm_year", request.getParameter("FRM_YEAR"));
 		}
 		if (request.getParameter("FRM_MONTH") != null) {
-			filterparam = filterparam + "FRM_MONTH : " + request.getParameter("FRM_MONTH").toString();
+			filterparam = filterparam + " Month : " + request.getParameter("FRM_MONTH").toString();
 			parameters.put("pm_frm_month", request.getParameter("FRM_MONTH"));
 		}
 		if (request.getParameter("TO_YEAR") != null) {
-			filterparam = filterparam + "TO_YEAR : " + request.getParameter("TO_YEAR").toString();
+			filterparam = filterparam + "ToYear : " + request.getParameter("TO_YEAR").toString();
 			parameters.put("pm_to_year", request.getParameter("TO_YEAR"));
 		}
 		if (request.getParameter("TO_MONTH") != null) {
-			filterparam = filterparam + "TO_MONTH : " + request.getParameter("TO_MONTH").toString();
+			filterparam = filterparam + "Month : " + request.getParameter("TO_MONTH").toString();
 			parameters.put("pm_to_month", request.getParameter("TO_MONTH"));
 		}
 

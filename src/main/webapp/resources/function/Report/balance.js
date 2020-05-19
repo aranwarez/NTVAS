@@ -10,7 +10,12 @@ $(document).ready(function() {
 	// allowClear: false
 	});
         $("#SERVICE_CODE").select2({
-		placeholder : "Select a Service Provider Code",
+		placeholder : "Select a Service Code",
+                allowClear: true
+	// allowClear: false
+	});
+                $("#ITEM_CODE").select2({
+		placeholder : "Select a Item Code",
                 allowClear: true
 	// allowClear: false
 	});

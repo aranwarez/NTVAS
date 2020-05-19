@@ -25,6 +25,9 @@
 	<parameter name="pm_to_month" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="pm_service" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT imp_year, imp_period, imp_month, s_no, sp_name, service_code,
 (SELECT count(*) FROM sms_netting WHERE imp_year=b.imp_year and imp_month=b.imp_month and s_no=b.s_no and service_code=b.service_code) total_esme,
@@ -51,6 +54,7 @@ round((rate*NVL(mo1final,0))*(share_nt_per/100),2) cf_inv_amt, royalty_per, vat_
 FROM sms_netting
 WHERE imp_year||imp_month BETWEEN $P{pm_frm_year}||$P{pm_frm_month} AND $P{pm_to_year}||$P{pm_to_month}
 AND s_no= nvl($P{pm_sp_code},s_no)
+AND service_code=nvl($P{pm_service},service_code)
 AND sharing_type='Y'
 )) a) b
 group by imp_year, imp_period, imp_month, s_no, sp_name, service_code

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.dao.BankDao;
 import com.dao.CommonDateDao;
 import com.dao.CommonMenuDao;
+import com.dao.ItemDao;
 import com.dao.SpDao;
 import com.dao.VASServiceDao;
 import com.model.MenuAccess;
@@ -41,6 +42,8 @@ public class ReportMenuController {
         model.addAttribute("Sp_list", sp.getSpList());
         VASServiceDao VASSER = new VASServiceDao();
         model.addAttribute("VASSer_list", VASSER.getVasServiceList());
+        ItemDao ITEM = new ItemDao();
+        model.addAttribute("ITEMwotax_list", ITEM.getItemListwotax());
         BankDao bank = new BankDao();
 
         CommonDateDao DAT = new CommonDateDao();
@@ -68,6 +71,9 @@ public class ReportMenuController {
         SpDao sp = new SpDao();
         model.addAttribute("Sp_list", sp.getSpList());
         BankDao bank = new BankDao();
+        
+        VASServiceDao VASSER = new VASServiceDao();
+        model.addAttribute("VASSer_list", VASSER.getVasServiceList());
 
         CommonDateDao DAT = new CommonDateDao();
         model.addAttribute("Date_list", DAT.getDateList());
@@ -96,8 +102,14 @@ public class ReportMenuController {
         // getting list of paramater required
         SpDao sp = new SpDao();
         model.addAttribute("Sp_list", sp.getSpList());
-        BankDao bank = new BankDao();
 
+        VASServiceDao VASSER = new VASServiceDao();
+        model.addAttribute("VASSer_list", VASSER.getVasServiceList());
+        
+        ItemDao ITEM = new ItemDao();
+        model.addAttribute("ITEMwotax_list", ITEM.getItemListwotax());
+        
+        BankDao bank = new BankDao();
         CommonDateDao DAT = new CommonDateDao();
         model.addAttribute("Date_list", DAT.getDateList());
 
@@ -125,8 +137,13 @@ public class ReportMenuController {
         // getting list of paramater required
         SpDao sp = new SpDao();
         model.addAttribute("Sp_list", sp.getSpList());
+
         VASServiceDao VASSER = new VASServiceDao();
         model.addAttribute("VASSer_list", VASSER.getVasServiceList());
+        
+        ItemDao ITEM = new ItemDao();
+        model.addAttribute("ITEMwotax_list", ITEM.getItemListwotax());
+        
         BankDao bank = new BankDao();
 
         CommonDateDao DAT = new CommonDateDao();

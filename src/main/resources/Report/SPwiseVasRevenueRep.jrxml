@@ -34,6 +34,7 @@
 	<parameter name="pm_item_code" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="pm_service" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT to_number(substr(nep_date,1,4)) imp_year, substr(nep_date,6,2) imp_month,
 substr(nep_date,1,8)||'01' nep_inv_dt,
@@ -60,7 +61,7 @@ group by imp_year, imp_month, nep_inv_dt, s_no, sp_name, service_code, item_code
 sharing_type, DECODE(sharing_type,'Y', 'Sharing','Non Sharing'), decode(vat_amt,0,0,1), post_flag)
 WHERE imp_year||imp_month BETWEEN $P{pm_frm_year}||$P{pm_frm_month} AND $P{pm_to_year}||$P{pm_to_month}
 AND s_no= nvl($P{pm_sp_code},s_no)
-AND service_code= nvl($P{pm_service_code},service_code)
+AND service_code= nvl($P{pm_service},service_code)
 AND item_code= nvl($P{pm_item_code},item_code)
 AND sharing_type=nvl($P{pm_sharing_type},sharing_type)
 AND post_flag='Y'
