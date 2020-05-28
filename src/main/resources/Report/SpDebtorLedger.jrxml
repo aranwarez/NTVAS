@@ -22,6 +22,9 @@
 	<parameter name="pm_service" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="pm_item_code" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT s_no, (SELECT SP_NAME FROM m_sp WHERE sp_code=a.s_no) sp_name, trans_type, trans_no, trans_dt, common.to_bs(trans_dt) nep_trans_dt,
 item_code,dr_amt, cr_amt, (dr_amt-cr_amt) bal_amt, remarks, create_by, create_dt,
@@ -33,7 +36,8 @@ FROM
 dr_cr_flag, total_amt dr_amt, 0 cr_amt, remarks, create_by, create_dt
 from vw_ledger
 WHERE s_no=$P{pm_sp_code}
-AND item_code=nvl($P{pm_service},item_code)
+AND service_code=nvl($P{pm_service},service_code)
+AND item_code=nvl($P{pm_item_code},item_code)
 AND trans_dt between $P{pm_frm_dt} and $P{pm_to_dt}
 AND dr_cr_flag=1
 AND post_flag='Y'
@@ -42,7 +46,8 @@ select s_no, trans_type, trans_no, trans_dt, imp_year, imp_month, item_code,
 dr_cr_flag, 0 dr_amt, abs(total_amt) cr_amt, remarks, create_by, create_dt
 from vw_ledger
 WHERE s_no=$P{pm_sp_code}
-AND item_code=nvl($P{pm_service},item_code)
+AND service_code=nvl($P{pm_service},service_code)
+AND item_code=nvl($P{pm_item_code},item_code)
 AND trans_dt between $P{pm_frm_dt} and $P{pm_to_dt}
 AND dr_cr_flag=-1
 AND post_flag='Y'

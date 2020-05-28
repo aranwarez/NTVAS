@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VasRevenueRep" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="93"/>
+	<property name="ireport.y" value="64"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -34,9 +34,10 @@
 	<parameter name="pm_item_code" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="pm_service" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT to_number(substr(nep_date,1,4)) imp_year, substr(nep_date,6,2) imp_month,
-substr(nep_date,1,8)||'01' nep_inv_dt,
+		<![CDATA[SELECT  to_number(substr(nep_date,1,4)) imp_year, substr(nep_date,6,2) imp_month,
+substr(nep_date,1,8)||'01' nep_inv_dt,'Miscellaneous Revenue' category,
 customer_code, sp_name, category_code service_code, item_code,
 'C' sharing_type, 'CashSaleItems' sharing_desc,
 sum(revenue_amt) rev_amt, sum(tsc_amt) tsc_amt, sum(vat_amt) vat_amt, post_flag
@@ -49,27 +50,29 @@ AND post_flag='Y'
 group by to_number(substr(nep_date,1,4)), substr(nep_date,6,2),
 substr(nep_date,1,8)||'01', customer_code, sp_name, category_code, item_code, post_flag
 UNION ALL
-SELECT imp_year, imp_month, nep_inv_dt, s_no, sp_name, service_code, item_code,
+SELECT imp_year, imp_month, nep_inv_dt, category, s_no, sp_name, service_code, item_code,
 sharing_type, sharing_desc,rev_amt, tsc_amt,
 round((rev_amt+nvl(tsc_amt,0)*13/100),2) vat_amt, post_flag
 FROM
-(SELECT imp_year, imp_month, nep_inv_dt, s_no, sp_name, service_code,item_code,sharing_type,
+(SELECT imp_year, imp_month, nep_inv_dt, DECODE(category_code,'SERVICE', 'VAS Service Revenue','Miscellaneous Revenue') category,
+s_no, sp_name, service_code,item_code,sharing_type,
 DECODE(sharing_type,'Y', 'Sharing','Non Sharing') sharing_desc,
 sum(rev_amt) rev_amt, round(sum((rev_amt*13)/100),2) tsc_amt, decode(vat_amt,0,0,1) vat_flag, post_flag
 FROM vw_bill
-group by imp_year, imp_month, nep_inv_dt, s_no, sp_name, service_code, item_code,
+group by  imp_year, imp_month, nep_inv_dt, DECODE(category_code,'SERVICE', 'VAS Service Revenue','Miscellaneous Revenue'), s_no, sp_name, service_code, item_code,
 sharing_type, DECODE(sharing_type,'Y', 'Sharing','Non Sharing'), decode(vat_amt,0,0,1), post_flag)
 WHERE imp_year||imp_month BETWEEN $P{pm_frm_year}||$P{pm_frm_month} AND $P{pm_to_year}||$P{pm_to_month}
 AND s_no= nvl($P{pm_sp_code},s_no)
-AND service_code= nvl($P{pm_service_code},service_code)
+AND service_code= nvl($P{pm_service},service_code)
 AND item_code= nvl($P{pm_item_code},item_code)
 AND sharing_type=nvl($P{pm_sharing_type},sharing_type)
 AND post_flag='Y'
-order by imp_year, imp_month, sp_name, service_code, item_code, sharing_type desc]]>
+order by imp_year, imp_month,4 desc, sp_name, service_code, item_code, sharing_type desc]]>
 	</queryString>
 	<field name="IMP_YEAR" class="java.math.BigDecimal"/>
 	<field name="IMP_MONTH" class="java.lang.String"/>
 	<field name="NEP_INV_DT" class="java.lang.String"/>
+	<field name="CATEGORY" class="java.lang.String"/>
 	<field name="CUSTOMER_CODE" class="java.lang.String"/>
 	<field name="SP_NAME" class="java.lang.String"/>
 	<field name="SERVICE_CODE" class="java.lang.String"/>
@@ -96,22 +99,34 @@ order by imp_year, imp_month, sp_name, service_code, item_code, sharing_type des
 	<variable name="sp_tot_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$V{tot_amt}]]></variableExpression>
 	</variable>
-	<variable name="gt_tsc" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
+	<variable name="gt_tsc" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{TSC_AMT}]]></variableExpression>
 	</variable>
-	<variable name="gt_tot_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
+	<variable name="gt_tot_amt" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$V{tot_amt}]]></variableExpression>
 	</variable>
-	<variable name="gt_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
+	<variable name="gt_amt" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{REV_AMT}]]></variableExpression>
 	</variable>
-	<variable name="gt_vat" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
+	<variable name="gt_vat" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{VAT_AMT}]]></variableExpression>
+	</variable>
+	<variable name="cp_tsc" class="java.math.BigDecimal" resetType="Group" resetGroup="Category" calculation="Sum">
+		<variableExpression><![CDATA[$F{TSC_AMT}]]></variableExpression>
+	</variable>
+	<variable name="cp_tot_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="Category" calculation="Sum">
+		<variableExpression><![CDATA[$V{tot_amt}]]></variableExpression>
+	</variable>
+	<variable name="cp_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="Category" calculation="Sum">
+		<variableExpression><![CDATA[$F{REV_AMT}]]></variableExpression>
+	</variable>
+	<variable name="cp_vat" class="java.math.BigDecimal" resetType="Group" resetGroup="Category" calculation="Sum">
 		<variableExpression><![CDATA[$F{VAT_AMT}]]></variableExpression>
 	</variable>
 	<group name="SP_CODE" isStartNewPage="true" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{NEP_INV_DT}]]></groupExpression>
 		<groupHeader>
-			<band height="49">
+			<band height="48">
 				<textField>
 					<reportElement x="53" y="7" width="100" height="15" uuid="579c8118-c45b-43e5-9129-697b64e2ef19"/>
 					<textElement>
@@ -211,7 +226,7 @@ order by imp_year, imp_month, sp_name, service_code, item_code, sharing_type des
 					<textElement verticalAlignment="Top">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total:]]></text>
+					<text><![CDATA[Monthly Total:]]></text>
 				</staticText>
 				<line>
 					<reportElement x="0" y="0" width="556" height="1" uuid="a1a1c5f1-1ae3-49ad-9433-5c6b8f35e48c"/>
@@ -247,6 +262,65 @@ order by imp_year, imp_month, sp_name, service_code, item_code, sharing_type des
 			</band>
 		</groupFooter>
 	</group>
+	<group name="Category">
+		<groupExpression><![CDATA[$F{CATEGORY}]]></groupExpression>
+		<groupHeader>
+			<band height="19">
+				<textField>
+					<reportElement x="3" y="2" width="150" height="15" uuid="651d116c-4a41-4b01-8249-946351127b75"/>
+					<textElement>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CATEGORY}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="18" width="556" height="1" uuid="c3b9a4e6-e1e1-4bbb-87eb-7d9a7cb58126"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="14">
+				<textField>
+					<reportElement x="1" y="-1" width="150" height="15" uuid="634d13b1-befb-4cb2-8c81-ea2385891666"/>
+					<textElement>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CATEGORY}+" wise Total:"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-1" y="-1" width="556" height="1" uuid="0abe06f9-acdf-4b3d-98d8-e674b166b49b"/>
+				</line>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="275" y="-1" width="68" height="15" uuid="39688f9a-7775-4efe-a686-b5dcc80abdda"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{cp_amt}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="342" y="-1" width="62" height="15" uuid="bb2229ba-1ec7-4d84-ab10-3b57b97d6d7b"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{cp_tsc}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="405" y="-1" width="70" height="15" uuid="e37010d0-b4fc-4d64-9a7c-5b9755cb5b2e"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{cp_vat}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;-#,##0.00">
+					<reportElement x="484" y="-1" width="70" height="15" uuid="5a33eb99-a1e8-49fb-a220-7c383e6ccd5d"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{cp_tot_amt}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -273,7 +347,7 @@ order by imp_year, imp_month, sp_name, service_code, item_code, sharing_type des
 				<reportElement x="-1" y="71" width="556" height="1" uuid="b6063f83-5a92-4988-9388-7e88299bf40f"/>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="1" y="52" width="553" height="15" uuid="d8d3cd16-518c-4a7d-97b1-f166f171d2b2"/>
+				<reportElement x="-25" y="-46" width="553" height="15" uuid="d8d3cd16-518c-4a7d-97b1-f166f171d2b2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
@@ -315,8 +389,15 @@ order by imp_year, imp_month, sp_name, service_code, item_code, sharing_type des
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Overall VAS Revenue]]></text>
+				<text><![CDATA[Monthly Overall VAS Revenue]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="3" y="52" width="550" height="20" uuid="e0834947-829e-47fe-9bbb-43462c4aac15"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pm_filter}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

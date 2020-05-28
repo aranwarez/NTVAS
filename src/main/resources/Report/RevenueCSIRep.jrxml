@@ -34,6 +34,7 @@
 	<parameter name="pm_item_code" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="pm_service" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT to_number(substr(nep_date,1,4)) imp_year, substr(nep_date,6,2) imp_month,
 substr(nep_date,1,8)||'01' nep_inv_dt,
