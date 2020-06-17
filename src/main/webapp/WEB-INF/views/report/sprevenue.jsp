@@ -179,11 +179,11 @@
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname">
-                                                        <option value="VasRevenueRepSummary">Overall VAS Revenue(Summary)</option>
-                                                        <option value="VasRevenueRep">Monthly Overall VAS Revenue</option>
-                                                        <option value="VasRevenueExceptCSIRep">Overall Revenue Except Cash Sale Items</option>
+                                                        <option value="VasRevenueRepSummary">Overall VAS Revenue(Including Cash Sales & Debtors)</option>
+                                                        <option value="VasRevenueRep">Monthly Overall VAS Revenue(Including Cash Sales & Debtors)</option>
+                                                        <option value="VasRevenueExceptCSIRep">Overall Revenue Except Cash Sale & Debtors</option>
                                                         <option value="RevenueCSIRep">Cash Sales Revenue</option>
-                                                        <option value="SPwiseVasRevenueRep">Service Provider wise Overall VAS Revenue</option>
+                                                        <option value="SPwiseVasRevenueRep">Service Provider wise VAS Revenue</option>
                                                         <option value="ServicewiseSPVasRevenueRep">Service wise Revenue Report</option>
                                                     </select>
                                                 </td>

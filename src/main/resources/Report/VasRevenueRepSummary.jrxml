@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VasRevenueRepSummary" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="93"/>
+	<property name="ireport.y" value="6"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -36,7 +36,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT  'Miscellaneous Revenue' category,
+		<![CDATA[SELECT 'E' ind_order, 'Miscellaneous Revenue/Cash Sales' category,
 customer_code, sp_name, category_code service_code, item_code,
 'C' sharing_type, 'CashSaleItems' sharing_desc,
 sum(revenue_amt) rev_amt, sum(tsc_amt) tsc_amt, sum(vat_amt) vat_amt, post_flag
@@ -48,11 +48,11 @@ AND item_code= nvl($P{pm_item_code},'BULKSMS')
 AND post_flag='Y'
 group by customer_code, sp_name, category_code, item_code, post_flag
 UNION ALL
-SELECT category, s_no, sp_name, service_code, item_code,
+SELECT 'A' ind_order, category, s_no, sp_name, service_code, item_code,
 sharing_type, sharing_desc,rev_amt, tsc_amt,
 round(((rev_amt+nvl(tsc_amt,0))*13/100),2) vat_amt, post_flag
 FROM
-(SELECT DECODE(category_code,'SERVICE', 'VAS Service Revenue','Miscellaneous Revenue') category,
+(SELECT 'Subscription based VAS Service Revenue' category,
 s_no, sp_name, service_code,item_code,sharing_type,
 DECODE(sharing_type,'Y', 'Sharing','Non Sharing') sharing_desc,
 sum(rev_amt) rev_amt, round(sum((rev_amt*13)/100),2) tsc_amt, decode(vat_amt,0,0,1) vat_flag, post_flag
@@ -63,10 +63,69 @@ AND service_code= nvl($P{pm_service},service_code)
 AND item_code= nvl($P{pm_item_code},item_code)
 AND sharing_type=nvl($P{pm_sharing_type},sharing_type)
 AND post_flag='Y'
-group by  DECODE(category_code,'SERVICE', 'VAS Service Revenue','Miscellaneous Revenue'), s_no, sp_name, service_code, item_code,
-sharing_type, DECODE(sharing_type,'Y', 'Sharing','Non Sharing'), decode(vat_amt,0,0,1), post_flag)
-order by 1 desc, sp_name, service_code, item_code, sharing_type desc]]>
+AND service_code IN('APP','WAP','IVR')
+group by  s_no, sp_name, service_code, item_code,
+sharing_type, DECODE(sharing_type,'Y', 'Sharing','Non Sharing'), decode(vat_amt,0,1,1), post_flag)
+UNION ALL
+SELECT 'B' ind_order, category, s_no, sp_name, service_code, item_code,
+sharing_type, sharing_desc,rev_amt, tsc_amt,
+round(((rev_amt+nvl(tsc_amt,0))*13/100),2) vat_amt, post_flag
+FROM
+(SELECT 'Sharing Short Code Revenue' category,
+s_no, sp_name, service_code,item_code,sharing_type,
+DECODE(sharing_type,'Y', 'Sharing','Non Sharing') sharing_desc,
+sum(rev_amt) rev_amt, round(sum((rev_amt*13)/100),2) tsc_amt, decode(vat_amt,0,0,1) vat_flag, post_flag
+FROM vw_bill
+WHERE imp_year||imp_month BETWEEN $P{pm_frm_year}||$P{pm_frm_month} AND $P{pm_to_year}||$P{pm_to_month}
+AND s_no= nvl($P{pm_sp_code},s_no)
+AND service_code= nvl($P{pm_service},service_code)
+AND item_code= nvl($P{pm_item_code},item_code)
+AND sharing_type=nvl($P{pm_sharing_type},sharing_type)
+AND post_flag='Y'
+AND service_code ='SMS' and sharing_type='Y'
+group by  s_no, sp_name, service_code, item_code,
+sharing_type, DECODE(sharing_type,'Y', 'Sharing','Non Sharing'), decode(vat_amt,0,1,1), post_flag)
+UNION ALL
+SELECT 'C' ind_order, category, s_no, sp_name, service_code, item_code,
+sharing_type, sharing_desc,rev_amt, tsc_amt,
+round(((rev_amt+nvl(tsc_amt,0))*13/100),2) vat_amt, post_flag
+FROM
+(SELECT 'Non Sharing Short Code Revenue' category,
+s_no, sp_name, service_code,item_code,sharing_type,
+DECODE(sharing_type,'Y', 'Sharing','Non Sharing') sharing_desc,
+sum(rev_amt) rev_amt, round(sum((rev_amt*13)/100),2) tsc_amt, decode(vat_amt,0,0,1) vat_flag, post_flag
+FROM vw_bill
+WHERE imp_year||imp_month BETWEEN $P{pm_frm_year}||$P{pm_frm_month} AND $P{pm_to_year}||$P{pm_to_month}
+AND s_no= nvl($P{pm_sp_code},s_no)
+AND service_code= nvl($P{pm_service},service_code)
+AND item_code= nvl($P{pm_item_code},item_code)
+AND sharing_type=nvl($P{pm_sharing_type},sharing_type)
+AND post_flag='Y'
+AND service_code ='SMS' and sharing_type='N'
+group by s_no, sp_name, service_code, item_code,
+sharing_type, DECODE(sharing_type,'Y', 'Sharing','Non Sharing'), decode(vat_amt,0,1,1), post_flag)
+UNION ALL
+SELECT 'D' ind_order, category, s_no, sp_name, service_code, item_code,
+sharing_type, sharing_desc,rev_amt, tsc_amt,
+round(((rev_amt+nvl(tsc_amt,0))*13/100),2) vat_amt, post_flag
+FROM
+(SELECT 'Debtors Revenue' category,
+s_no, sp_name, service_code,item_code,sharing_type,
+DECODE(sharing_type,'Y', 'Sharing','Non Sharing') sharing_desc,
+sum(rev_amt) rev_amt, round(sum((rev_amt*13)/100),2) tsc_amt, decode(vat_amt,0,0,1) vat_flag, post_flag
+FROM vw_bill
+WHERE imp_year||imp_month BETWEEN $P{pm_frm_year}||$P{pm_frm_month} AND $P{pm_to_year}||$P{pm_to_month}
+AND s_no= nvl($P{pm_sp_code},s_no)
+AND service_code= nvl($P{pm_service},service_code)
+AND item_code= nvl($P{pm_item_code},item_code)
+AND sharing_type=nvl($P{pm_sharing_type},sharing_type)
+AND post_flag='Y'
+AND service_code ='SMSALERT'
+group by  s_no, sp_name, service_code, item_code,
+sharing_type, DECODE(sharing_type,'Y', 'Sharing','Non Sharing'), decode(vat_amt,0,1,1), post_flag)
+order by 1, sp_name, service_code, item_code, sharing_type desc]]>
 	</queryString>
+	<field name="IND_ORDER" class="java.lang.String"/>
 	<field name="CATEGORY" class="java.lang.String"/>
 	<field name="CUSTOMER_CODE" class="java.lang.String"/>
 	<field name="SP_NAME" class="java.lang.String"/>
@@ -285,7 +344,7 @@ order by 1 desc, sp_name, service_code, item_code, sharing_type desc]]>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Overall VAS Revenue(Summary)]]></text>
+				<text><![CDATA[Overall VAS Revenue(Including Cash Sales & Debtors)]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="3" y="50" width="550" height="20" uuid="83402320-3a41-45c1-877e-955e7b26c456"/>

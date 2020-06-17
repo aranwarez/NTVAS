@@ -88,7 +88,7 @@
                                 <select style="width: 280px;" class="form-control" name="PACKAGE_TYPE" id="PACKAGE_TYPE">
                                     <option value=''>Select</option>
                                     <c:forEach var="PACKAGE" items="${Package_list}">
-                                        <option value="${PACKAGE.PACKAGE_TYPE}">${PACKAGE.PACKAGE_TYPE} ${PACKAGE.DESCRIPTION}</option>
+                                        <option value="${PACKAGE.PACKAGE_TYPE}">${PACKAGE.PACKAGE_TYPE} ${PACKAGE.DESCRIPTION} ${PACKAGE.PACKAGE_RATE}</option>
                                     </c:forEach>
                                 </select> 
                             </td>
@@ -244,7 +244,7 @@
                                     <select style="width: 280px;" class="form-control" name="EDITPACKAGE_TYPE" id="EDITPACKAGE_TYPE">
                                         <option value=''>Select</option>
                                         <c:forEach var="PACKAGE" items="${Package_list}">
-                                            <option value="${PACKAGE.PACKAGE_TYPE}">${PACKAGE.PACKAGE_TYPE} ${PACKAGE.DESCRIPTION}</option>
+                                            <option value="${PACKAGE.PACKAGE_TYPE}">${PACKAGE.PACKAGE_TYPE} ${PACKAGE.DESCRIPTION} ${PACKAGE.PACKAGE_RATE}</option>
                                         </c:forEach>
                                     </select> 
                                 </td>

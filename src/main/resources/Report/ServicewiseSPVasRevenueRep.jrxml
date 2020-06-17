@@ -108,16 +108,16 @@ order by imp_year, imp_month, service_code, item_code, sharing_type desc, sp_nam
 	<variable name="gt_vat" class="java.math.BigDecimal" resetType="Group" resetGroup="NEP_INV_DT" calculation="Sum">
 		<variableExpression><![CDATA[$F{VAT_AMT}]]></variableExpression>
 	</variable>
-	<variable name="vp_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="NEP_INV_DT" calculation="Sum">
+	<variable name="vp_amt" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{REV_AMT}]]></variableExpression>
 	</variable>
-	<variable name="vp_tsc" class="java.math.BigDecimal" resetType="Group" resetGroup="NEP_INV_DT" calculation="Sum">
+	<variable name="vp_tsc" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{TSC_AMT}]]></variableExpression>
 	</variable>
-	<variable name="vp_vat" class="java.math.BigDecimal" resetType="Group" resetGroup="NEP_INV_DT" calculation="Sum">
+	<variable name="vp_vat" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{VAT_AMT}]]></variableExpression>
 	</variable>
-	<variable name="vp_tot_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="NEP_INV_DT" calculation="Sum">
+	<variable name="vp_tot_amt" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$V{tot_amt}]]></variableExpression>
 	</variable>
 	<group name="NEP_INV_DT" isReprintHeaderOnEachPage="true">

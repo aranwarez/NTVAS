@@ -389,7 +389,7 @@ order by imp_year, imp_month,4 desc, sp_name, service_code, item_code, sharing_t
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Monthly Overall VAS Revenue]]></text>
+				<text><![CDATA[Monthly Overall VAS Revenue(Including Cash Sales & Debtors)]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="3" y="52" width="550" height="20" uuid="e0834947-829e-47fe-9bbb-43462c4aac15"/>
