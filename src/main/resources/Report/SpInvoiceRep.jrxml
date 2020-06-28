@@ -27,14 +27,21 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select trans_no, nep_inv_dt, imp_year, imp_period, imp_month, s_no, sp_name, account_no,
-address, pan_no, service_code, item_code,  post_flag, sum(amt) amt, sum(tsc_amt) tsc, sum(vat_amt) vat, sum(nvl(amt,0)+nvl(tsc_amt,0)+nvl(vat_amt,0)) total_amt
+address, pan_no, service_code, item_code,  post_flag,
+amt, tsc, vat, (amt+tsc+vat) total_amt
+from(
+select trans_no, nep_inv_dt, imp_year, imp_period, imp_month, s_no, sp_name, account_no,
+address, pan_no, service_code, decode(service_code,'SMS',item_code,'SMSALERT') item_code,
+post_flag, sum(rev_amt) amt, sum(round(rev_amt*13/100,2)) tsc,
+sum(round((rev_amt+round(rev_amt*13/100,2))*13/100,2)) vat
+
 FROM vw_bill
 WHERE imp_year||imp_month BETWEEN $P{pm_frm_year}||$P{pm_frm_month} AND $P{pm_to_year}||$P{pm_to_month}
 AND s_no= nvl($P{pm_sp_code},s_no)
 AND post_flag='Y'
 AND sharing_type='N'
 group by trans_no, nep_inv_dt, imp_year, imp_period, imp_month, s_no, sp_name, account_no, address, pan_no, service_code, item_code, post_flag
-order by imp_year, imp_month, s_no]]>
+order by imp_year, imp_month, s_no)]]>
 	</queryString>
 	<field name="TRANS_NO" class="java.math.BigDecimal"/>
 	<field name="NEP_INV_DT" class="java.lang.String"/>
