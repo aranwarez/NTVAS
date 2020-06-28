@@ -47,6 +47,7 @@ AND s_no = nvl($P{pm_sp_code},s_no)
 AND service_code=nvl($P{pm_service},service_code)
 AND sharing_type='N'
 AND service_code in('SMS')
+AND esme_code  in(select esme_code from m_cp where service_code='SMS' AND sharing_type='N' and afs_flag='N')
 order by s_no, imp_year, imp_month, esme_code]]>
 	</queryString>
 	<field name="S_NO" class="java.lang.String"/>
