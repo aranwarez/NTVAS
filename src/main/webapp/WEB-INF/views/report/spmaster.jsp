@@ -120,6 +120,7 @@
                                                 <td>
                                                     <select name="reportname">
                                                         <option value="SpList">VAS Provider List</option>
+                                                        <option value="SpServiceList">VAS Provider's Status Detail List</option>
                                                         <option value="SpCpList">VAS Provider ESME/BG List</option>
                                                         <option value="SpTargetList">VAS Provider Target List</option>
                                                         <option value="SpBankGuarenteeList">VAS Provider Bank Guarantee List</option>
