@@ -42,7 +42,7 @@ FROM(
 SELECT imp_year, imp_period, imp_month, s_no, service_code, esme_code , rate, mo_nt, mt_nt,
 decode(mo_nt,0,0,round((mt_nt/mo_nt),2)) cf_ratio, mo_sp, mt_sp,
 decode(mo_nt,0,0,((mo_nt-mo_sp)/mo_nt*100)) cf_diff,
-mo_final, cf_inv_amt, round(cf_inv_amt*(royalty_per/100),2) cf_royalty, vat_per
+mo_final, cf_inv_amt, round(cf_inv_amt*(royalty_per),2) cf_royalty, vat_per
 FROM
 (SELECT imp_year, imp_period, imp_month, s_no, service_code, esme_code , rate,
 NVL(mo1nt,0) mo_nt,

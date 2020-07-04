@@ -93,52 +93,6 @@
                                     <form method="post">
                                         <table class="table-condensed">
                                             <tr>
-                                                <c:forEach var="DAT" items="${Date_list}">
-                                                    <td>From Year</td>
-                                                    <td><input style="width: 80px;" class="form-control"
-                                                               value="${DAT.CUR_YEAR}" type="number" name="FRM_YEAR"
-                                                               id="FRM_YEAR" placeholder="Enter from Year"></td>
-                                                    <td>
-                                                        <select style="width: 100px;" name="FRM_MONTH"
-                                                                id="FRM_MONTH">
-                                                            <option value=''>Select :</option>
-                                                            <c:forEach var="MONTH" items="${Mon_list}">
-                                                                <c:if test="${DAT.CUR_MONTH==MONTH.MONTH_CD}">
-                                                                    <option selected value="${MONTH.MONTH_CD}">
-                                                                        ${MONTH.NEP_MONTH}</option>
-                                                                    </c:if>
-                                                                    <c:if test="${DAT.CUR_MONTH!=MONTH.MONTH_CD}">
-                                                                    <option value="${MONTH.MONTH_CD}">
-                                                                        ${MONTH.NEP_MONTH}</option>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                        </select>
-                                                    </td>
-                                                </c:forEach>
-                                                <c:forEach var="DAT" items="${Date_list}">
-                                                    <td>To Year</td>
-                                                    <td><input style="width: 80px;" class="form-control"
-                                                               value="${DAT.CUR_YEAR}" type="number" name="TO_YEAR"
-                                                               id="FRM_YEAR" placeholder="Enter to Year"></td>
-                                                    <td>
-                                                        <select style="width: 100px;" name="TO_MONTH"
-                                                                id="TO_MONTH">
-                                                            <option value=''>Select :</option>
-                                                            <c:forEach var="MONTH" items="${Mon_list}">
-                                                                <c:if test="${DAT.CUR_MONTH==MONTH.MONTH_CD}">
-                                                                    <option selected value="${MONTH.MONTH_CD}">
-                                                                        ${MONTH.NEP_MONTH}</option>
-                                                                    </c:if>
-                                                                    <c:if test="${DAT.CUR_MONTH!=MONTH.MONTH_CD}">
-                                                                    <option value="${MONTH.MONTH_CD}">
-                                                                        ${MONTH.NEP_MONTH}</option>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                        </select>
-                                                    </td>
-                                                </c:forEach>
-                                            </tr>
-                                            <tr>
                                                 <td>Service Provider</td>
                                                 <td><select style="width: 400px;" name="SP_CODE"
                                                             id="SP_CODE">
@@ -162,29 +116,15 @@
                                                     </select>
                                                 </td>
                                             </tr>
-                                            
-                                            <tr>
-                                                <td>VAS Item</td>
-                                                <td><select style="width: 400px;" name="ITEM_CODE"
-                                                            id="ITEM_CODE">
-                                                        <option value=''>Select :</option>
-                                                        <c:forEach var="ITEM" items="${ITEMwotax_list}">
-                                                            <option value="${ITEM.ITEM_CODE}">${ITEM.DESCRIPTION}
-                                                                ${ITEM.ITEM_CODE}</option>
-                                                            </c:forEach>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname">
-                                                        <option value="VasRevenueRepSummary">Overall VAS Revenue(Including Cash Sales & Debtors)</option>
-                                                        <option value="VasRevenueRep">Monthly Overall VAS Revenue(Including Cash Sales & Debtors)</option>
-                                                        <option value="VasRevenueExceptCSIRep">Overall Revenue Except Cash Sale & Debtors</option>
-                                                        <option value="RevenueCSIRep">Cash Sales Revenue</option>
-                                                        <option value="SPwiseVasRevenueRep">Service Provider wise VAS Revenue</option>
-                                                        <option value="ServicewiseSPVasRevenueRep">Service wise Revenue Report</option>
+                                                        <option value="SpList">VAS Provider List</option>
+                                                        <option value="SpServiceList">VAS Provider's Status Detail List</option>
+                                                        <option value="SpCpList">VAS Provider ESME/BG List</option>
+                                                        <option value="SpTargetList">VAS Provider Target List</option>
+                                                        <option value="SpBankGuarenteeList">VAS Provider Bank Guarantee List</option>
+                                                        <option value="SMSTariffList">SMS Tariff List</option>
                                                     </select>
                                                 </td>
                                             </tr>

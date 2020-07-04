@@ -149,42 +149,42 @@
                                                             </c:forEach>
                                                     </select></td>
                                             </tr>
-                                            
-                                            <tr>
-                                                <td>VAS Service</td>
-                                                <td><select style="width: 400px;" name="SERVICE_CODE"
-                                                            id="SERVICE_CODE">
-                                                        <option value=''>Select :</option>
-                                                        <c:forEach var="SER" items="${VASSer_list}">
-                                                            <option value="${SER.SERVICE_CODE}">${SER.DESCRIPTION}
-                                                                ${SER.SERVICE_CODE}</option>
-                                                            </c:forEach>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            
-                                            <tr>
-                                                <td>VAS Item</td>
-                                                <td><select style="width: 400px;" name="ITEM_CODE"
-                                                            id="ITEM_CODE">
-                                                        <option value=''>Select :</option>
-                                                        <c:forEach var="ITEM" items="${ITEMwotax_list}">
-                                                            <option value="${ITEM.ITEM_CODE}">${ITEM.DESCRIPTION}
-                                                                ${ITEM.ITEM_CODE}</option>
-                                                            </c:forEach>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                            
+                                            <%--                        
+                                                                    <tr>
+                                                                        <td>VAS Service</td>
+                                                                        <td><select style="width: 400px;" name="SERVICE_CODE"
+                                                                                    id="SERVICE_CODE">
+                                                                                <option value=''>Select :</option>
+                                                                                <c:forEach var="SER" items="${VASSer_list}">
+                                                                                    <option value="${SER.SERVICE_CODE}">${SER.DESCRIPTION}
+                                                                                        ${SER.SERVICE_CODE}</option>
+                                                                                    </c:forEach>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    
+                                                                    <tr>
+                                                                        <td>VAS Item</td>
+                                                                        <td><select style="width: 400px;" name="ITEM_CODE"
+                                                                                    id="ITEM_CODE">
+                                                                                <option value=''>Select :</option>
+                                                                                <c:forEach var="ITEM" items="${ITEMwotax_list}">
+                                                                                    <option value="${ITEM.ITEM_CODE}">${ITEM.DESCRIPTION}
+                                                                                        ${ITEM.ITEM_CODE}</option>
+                                                                                    </c:forEach>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                            --%>
+
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname">
-                                                        <option value="VasRevenueRepSummary">Overall VAS Revenue(Including Cash Sales & Debtors)</option>
-                                                        <option value="VasRevenueRep">Monthly Overall VAS Revenue(Including Cash Sales & Debtors)</option>
-                                                        <option value="VasRevenueExceptCSIRep">Overall Revenue Except Cash Sale & Debtors</option>
-                                                        <option value="RevenueCSIRep">Cash Sales Revenue</option>
-                                                        <option value="SPwiseVasRevenueRep">Service Provider wise VAS Revenue</option>
-                                                        <option value="ServicewiseSPVasRevenueRep">Service wise Revenue Report</option>
+                                                        <option value="SharingShortCodeRevenue">Sharing Short Code Revenue</option>
+                                                        <option value="NonSharingShortCodeRevenue">Non Sharing Short Code Revenue</option>
+                                                        <option value="SmsAlertRevenue">SMS Alert Revenue</option>
+                                                        <option value="SharingShortCodeExtraMTRevenue">Sharing Short Code Extra MT Revenue</option>
+                                                        <option value="NonSharingShortCodeExtraMTRevenue">Non Sharing Short Code Extra MT Revenue</option>
                                                     </select>
                                                 </td>
                                             </tr>

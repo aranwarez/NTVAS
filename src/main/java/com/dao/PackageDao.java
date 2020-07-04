@@ -26,7 +26,7 @@ public class PackageDao {
         Connection con = DbCon.getConnection();
 
         try {
-            PreparedStatement pst = con.prepareStatement("select * from M_PACKAGE_TYPE ORDER BY PACKAGE_TYPE");
+            PreparedStatement pst = con.prepareStatement("select a.*, get_package_rate(a.package_type) package_rate from M_PACKAGE_TYPE a ORDER BY PACKAGE_TYPE");
             ResultSet rs = pst.executeQuery();
 
             List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
