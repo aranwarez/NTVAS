@@ -150,15 +150,16 @@ public class SPTargetController {
     @RequestMapping(value = "/sp/savespserviceJS", method = RequestMethod.POST)
     @ResponseBody
     public String saveserviceJSSp(String SP_CODE, String SERVICE_CODE, String ACTIVE_FLAG, String ACTIVE_DT,
-            String DEACTIVATE_DT, HttpSession session, Model model, Locale locale) {
-
-        logger.info("Save service provider {}.", locale);
+            String DEACTIVATE_DT,String ContractNo,String proposal_receipt_dt,String testing_letter_dt,
+            String test_report_receipt_dt,String contract_valid_dt,String contract_terminate_dt, 
+            HttpSession session, Model model, Locale locale) {
+            logger.info("Save service provider {}.", locale);
         SpServiceDao dao = new SpServiceDao();
         UserInformationModel userinfo = (UserInformationModel) session.getAttribute("UserList");
         String USER = userinfo.getUSER_ID();
         String msg = null;
         try {
-            msg = dao.saveSpService(SP_CODE, SERVICE_CODE, ACTIVE_FLAG, ACTIVE_DT, DEACTIVATE_DT, USER);
+            msg = dao.saveSpService(SP_CODE, SERVICE_CODE, ACTIVE_FLAG, ACTIVE_DT, DEACTIVATE_DT, USER,ContractNo,proposal_receipt_dt,testing_letter_dt,test_report_receipt_dt,contract_valid_dt,contract_terminate_dt );
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -169,7 +170,9 @@ public class SPTargetController {
     @RequestMapping(value = "/sp/updatespserviceJS", method = RequestMethod.POST)
     @ResponseBody
     public String UpdateSPservice(String TRANS_ID, String SP_CODE, String SERVICE_CODE, String ACTIVE_FLAG,
-            String ACTIVE_DT, String DEACTIVATE_DT, HttpSession session, Model model, Locale locale) {
+            String ACTIVE_DT, String DEACTIVATE_DT,String ContractNo,String proposal_receipt_dt,String testing_letter_dt,
+            String test_report_receipt_dt,String contract_valid_dt,String contract_terminate_dt,
+            HttpSession session, Model model, Locale locale) {
 
         logger.info("Update service provider services.", locale);
         SpServiceDao dao = new SpServiceDao();
@@ -177,7 +180,7 @@ public class SPTargetController {
         String USER = userinfo.getUSER_ID();
         String msg = null;
         try {
-            msg = dao.updateSpService(TRANS_ID, SP_CODE, SERVICE_CODE, ACTIVE_FLAG, ACTIVE_DT, DEACTIVATE_DT, USER);
+            msg = dao.updateSpService(TRANS_ID, SP_CODE, SERVICE_CODE, ACTIVE_FLAG, ACTIVE_DT, DEACTIVATE_DT, USER,ContractNo,proposal_receipt_dt,testing_letter_dt,test_report_receipt_dt,contract_valid_dt,contract_terminate_dt);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
