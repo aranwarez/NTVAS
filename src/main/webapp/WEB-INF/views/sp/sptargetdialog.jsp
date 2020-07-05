@@ -250,10 +250,45 @@
                         <option value='Y'>Y</option>
                     </select> 
                     <br> 
+                    
+                    <label for="ACTIVE_DT">Contract No.</label> 
+                    <input
+                        type="text" maxlength="30" name="ContractNo"
+                        id="ContractNo">
+                        <br> 
                     <label for="ACTIVE_DT">Contract Dt</label> 
                     <input
                         type="text" class="nepali-calendar" name="ACTIVE_DT"
                         id="sACTIVE_DT"> 
+                    <br> 
+                    <label for="ACTIVE_DT">Proposal Receipt Date</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="proposal_receipt_dt"
+                        id="proposal_receipt_dt">
+                        <br> 
+                    <label for="ACTIVE_DT">Testing Letter Date</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="testing_letter_dt"
+                        id="testing_letter_dt"> 
+                        
+                        <br> 
+                    <label for="ACTIVE_DT">Testing Report Receipt Date</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="test_report_receipt_dt"
+                        id="test_report_receipt_dt">    
+                        
+                        <br> 
+                    <label for="ACTIVE_DT">contract_valid_dt</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="contract_valid_dt"
+                        id="contract_valid_dt">
+                        
+                        <br> 
+                    <label for="ACTIVE_DT">contract_terminate_dt</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="contract_terminate_dt"
+                        id="contract_terminate_dt">
+                      <br>  
                     <label for=DEACTIVATE_DT>Effective/Commercial Dt </label> 
                     <input type="text" class="nepali-calendar"
                            name="DEACTIVATE_DT" id="sDEACTIVATE_DT">
@@ -292,7 +327,16 @@
                                 <th>ACTIVE_FLAG</th>
                                 <th>Contract Dt</th>
                                 <th>Effective/Commericial Dt</th>
-                                <th>UPDATE_DT</th>
+                                
+                                <th>contract_no</th>
+                                <th> proposal_receipt_dt</th>
+                                <th>testing_letter_dt</th>
+                                <th>test_report_receipt_dt</th>
+                                <th>contract_valid_dt</th>
+                                <th>contract_terminate_dt</th> 
+                                
+                                
+                                
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -344,7 +388,45 @@
                         <option value='Y'>Y</option>
                     </select> <br> <label for="ACTIVE_DT">Contract Dt</label> <input
                         type="text" class="nepali-calendar" name="ACTIVE_DT"
-                        id="esACTIVE_DT"> <label for=DEACTIVATE_DT>Effective/Commercial Dt </label> <input type="text" class="nepali-calendar"
+                        id="esACTIVE_DT">
+                        <br>
+                        <label for="ACTIVE_DT">Contract No.</label> 
+                    <input
+                        type="text" maxlength="30" name="ContractNo"
+                        id="eContractNo">
+                        <br> 
+                    <label for="ACTIVE_DT">Proposal Receipt Date</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="eproposal_receipt_dt"
+                        id="eproposal_receipt_dt">
+                        <br> 
+                    <label for="ACTIVE_DT">Testing Letter Date</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="etesting_letter_dt"
+                        id="etesting_letter_dt"> 
+                        
+                        <br> 
+                    <label for="ACTIVE_DT">Testing Report Receipt Date</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="etest_report_receipt_dt"
+                        id="etest_report_receipt_dt">    
+                        
+                        <br> 
+                    <label for="ACTIVE_DT">contract_valid_dt</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="econtract_valid_dt"
+                        id="econtract_valid_dt">
+                        
+                        <br> 
+                    <label for="ACTIVE_DT">contract_terminate_dt</label> 
+                    <input
+                        type="text" class="nepali-calendar" name="econtract_terminate_dt"
+                        id="econtract_terminate_dt">
+                      <br>
+                        
+                        
+                        
+                         <label for=DEACTIVATE_DT>Effective/Commercial Dt </label> <input type="text" class="nepali-calendar"
                                          name="DEACTIVATE_DT" id="esDEACTIVATE_DT">
 
 

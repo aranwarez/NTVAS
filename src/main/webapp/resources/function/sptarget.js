@@ -164,13 +164,20 @@ function ServiceSpAction(SP_CODE) {
 
 // Saves Service for SP_CODE
 function savespservice() {
-    debugger;
+  //  debugger;
     $.post('../sp/savespserviceJS', {
         SP_CODE: currentSP,
         SERVICE_CODE: $('#sSERVICE_CODE').val(),
         ACTIVE_FLAG: $('#sACTIVE_FLAG').val(),
         ACTIVE_DT: $('#sACTIVE_DT').val(),
-        DEACTIVATE_DT: $('#sDEACTIVATE_DT').val()
+        DEACTIVATE_DT: $('#sDEACTIVATE_DT').val(),
+        //added parameters 7/5/2020
+        ContractNo : $('#ContractNo').val(),
+        proposal_receipt_dt : $('#proposal_receipt_dt').val(),
+        testing_letter_dt : $('#testing_letter_dt').val(),
+        test_report_receipt_dt : $('#test_report_receipt_dt').val(),
+        contract_valid_dt : $('#contract_valid_dt').val(),
+        contract_terminate_dt : $('#contract_terminate_dt').val()
 
     }, function (data) {
         alert(data);
@@ -207,7 +214,12 @@ function getSPServiceList() {
                                                                     value.ACTIVE_FLAG,
                                                                     value.NEP_ACTIVE_DT,
                                                                     value.NEP_DEACTIVE_DT,
-                                                                    value.UPDATE_DT,
+                                                                    value.CONTRACT_NO,
+                                                                    value.PROPOSAL_RECEIPT_DT,
+                                                                    value.TESTING_LETTER_DT,
+                                                                    value.TEST_REPORT_RECEIPT_DT,
+                                                                    value.CONTRACT_VALID_DT,
+                                                                    value.CONTRACT_TERMINATE_DT, 
                                                                     "<a href = \"#\" data-toggle=\"modal\" data-target=\"#editSPServiceModal\" title=\"Edit\" onclick=\"return editSPService('"
                                                                             + value.TRANS_ID
                                                                             + "')\"<span class=\"fa fa-pencil-square-o\"></span></a>",
@@ -234,6 +246,15 @@ function editSPService(Trans_id) {
                 $('#esACTIVE_FLAG').val(value.ACTIVE_FLAG);
                 $('#esACTIVE_DT').val(value.NEP_ACTIVE_DT);
                 $('#esDEACTIVATE_DT').val(value.NEP_DEACTIVE_DT);
+             
+                $('#eContractNo').val(value.CONTRACT_NO);
+                $('#eproposal_receipt_dt').val(value.PROPOSAL_RECEIPT_DT);
+                $('#etesting_letter_dt').val(value.TESTING_LETTER_DT);
+                $('#etest_report_receipt_dt').val(value.TEST_REPORT_RECEIPT_DT);
+                $('#econtract_valid_dt').val(value.CONTRACT_VALID_DT);
+                $('#econtract_terminate_dt').val(value.CONTRACT_TERMINATE_DT);
+                
+                
             }
         });
 
@@ -247,7 +268,16 @@ function updateSPService() {
         SERVICE_CODE: $('#esSERVICE_CODE').val(),
         ACTIVE_FLAG: $('#esACTIVE_FLAG').val(),
         ACTIVE_DT: $('#esACTIVE_DT').val(),
-        DEACTIVATE_DT: $('#esDEACTIVATE_DT').val()
+        DEACTIVATE_DT: $('#esDEACTIVATE_DT').val(),
+         //added parameters 7/5/2020
+        ContractNo : $('#eContractNo').val(),
+        proposal_receipt_dt : $('#eproposal_receipt_dt').val(),
+        testing_letter_dt : $('#etesting_letter_dt').val(),
+        test_report_receipt_dt : $('#etest_report_receipt_dt').val(),
+        contract_valid_dt : $('#econtract_valid_dt').val(),
+        contract_terminate_dt : $('#econtract_terminate_dt').val()
+        
+        
     }, function (data) {
         alert(data);
         if (data.substring(0, 6) === "Succes") {
