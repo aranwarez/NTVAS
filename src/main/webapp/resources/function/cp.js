@@ -131,7 +131,7 @@ function editCp(code) {
             $.each(packagelist, function (index, value) {
             	if(value.SERVICE_CODE===$('#EDITSERVICE_CODE').val()){
             	
-                $('<option>').val(value.PACKAGE_TYPE).text(value.DESCRIPTION).appendTo(
+                $('<option>').val(value.PACKAGE_TYPE).text(value.DESCRIPTION+' -Rs.'+value.PACKAGE_RATE).appendTo(
                         select);
             }
             });
@@ -240,7 +240,7 @@ function getItemTariffList() {
     $.each(packagelist, function (index, value) {
     	if(value.SERVICE_CODE===$('#SERVICE_CODE').val() || value.SERVICE_CODE===$('#EDITSERVICE_CODE').val()){
     	
-        $('<option>').val(value.PACKAGE_TYPE).text(value.DESCRIPTION).appendTo(
+        $('<option>').val(value.PACKAGE_TYPE).text(value.DESCRIPTION+' -Rs.'+value.PACKAGE_RATE).appendTo(
                 select);
     }
     });

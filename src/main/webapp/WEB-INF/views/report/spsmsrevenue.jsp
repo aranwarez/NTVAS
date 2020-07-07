@@ -180,6 +180,7 @@
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname">
+                                                        <option value="AllSmsRecRevenue">All SMS Receivable Revenue</option>
                                                         <option value="SharingShortCodeRevenue">Sharing Short Code Revenue</option>
                                                         <option value="NonSharingShortCodeRevenue">Non Sharing Short Code Revenue</option>
                                                         <option value="SmsAlertRevenue">SMS Alert Revenue</option>
