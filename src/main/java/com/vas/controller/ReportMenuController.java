@@ -220,4 +220,39 @@ public class ReportMenuController {
 
         return "report/spmaster";
     }
+    
+    @RequestMapping(value = "/report/spsubrevenue", method = RequestMethod.GET)
+    public String menusubrevenueList(Locale locale, Model model, HttpServletRequest request)
+            throws Exception {
+        String url = request.getServletPath();
+
+        UserInformationModel user = (UserInformationModel) request.getSession().getAttribute("UserList");
+        MenuAccess menuaccess = CommonMenuDao.checkAccess(user.getROLE_CODE(), ".." + url);
+        if (menuaccess == null || menuaccess.getADD_FLAG().equals("N")) {
+            model.addAttribute("fx", "Unauthorized Page for this role!!");
+            return "/home";
+        }
+        model.addAttribute("MENU_ACCESS", menuaccess);
+        model.addAttribute("fx", "VAS Subscription Revenue Report");
+
+        // getting list of paramater required
+        SpDao sp = new SpDao();
+        model.addAttribute("Sp_list", sp.getSpList());
+
+        VASServiceDao VASSER = new VASServiceDao();
+        model.addAttribute("VASSer_list", VASSER.getVasServiceList());
+
+        ItemDao ITEM = new ItemDao();
+        model.addAttribute("ITEMwotax_list", ITEM.getItemListwotax());
+
+        BankDao bank = new BankDao();
+        CommonDateDao DAT = new CommonDateDao();
+        model.addAttribute("Date_list", DAT.getDateList());
+
+        CommonDateDao mon = new CommonDateDao();
+        model.addAttribute("Mon_list", mon.getNepMonthList());
+
+        return "report/spsubrevenue";
+
+    }
 }

@@ -136,7 +136,7 @@ public class ReportController {
 	private Map<String, Object> getMapParameters(HttpServletRequest request) throws SQLException {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("pm_comp_name", "NEPAL TELECOM");
-		parameters.put("pm_address", "HEAD OFFICE BHADRAKALI");
+		parameters.put("pm_address", "Strategy Implementation & VAS Dept., Central Office");
 
 		UserInformationModel user = (UserInformationModel) request.getSession().getAttribute("UserList");
 		parameters.put("pm_user", user.getUSER_ID());
