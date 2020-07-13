@@ -67,7 +67,7 @@
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                         <li><a href="#">Report</a></li>
-                        <li class="active">VAS Invoice</li>
+                        <li class="active">VAS Payable Reports</li>
                     </ol>
 
                 </section>
@@ -149,7 +149,7 @@
                                                             </c:forEach>
                                                     </select></td>
                                             </tr>
-                                            <tr>
+                                                 <tr>
                                                 <td>VAS Service</td>
                                                 <td><select style="width: 400px;" name="SERVICE_CODE"
                                                             id="SERVICE_CODE">
@@ -164,7 +164,9 @@
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname">
-                                                        <option value="SpInvoiceRep">VAS Provider Invoice</option>
+                                                        <option value="SpPayableRep">Detail Payable Statement</option>
+                                                        <option value="SpPayableSummaryRep">Service wise Payable Statement</option>
+                                                        <option value="SpRevenueSummaryRep">Partner wise Payable Statement</option>
                                                     </select>
                                                 </td>
                                             </tr>

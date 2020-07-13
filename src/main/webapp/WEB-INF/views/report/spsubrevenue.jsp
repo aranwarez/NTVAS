@@ -180,6 +180,7 @@
                                                 <td>
                                                     <select name="reportname">
                                                         <option value="VasSubscriptionRevenueRep">VAS Subscription Revenue Report)</option>
+                                                        <option value="VasDetailSubscriptionRevenueRep">VAS Detail Subscription Revenue)</option>
                                                     </select>
                                                 </td>
                                             </tr>

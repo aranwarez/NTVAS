@@ -74,7 +74,7 @@ order by imp_year, imp_month, s_no)]]>
 		<variableExpression><![CDATA[$F{VAT}]]></variableExpression>
 	</variable>
 	<group name="SP_CODE" isStartNewPage="true" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$F{S_NO}]]></groupExpression>
+		<groupExpression><![CDATA[$F{S_NO}+$F{TRANS_NO}]]></groupExpression>
 		<groupHeader>
 			<band height="97">
 				<textField>
