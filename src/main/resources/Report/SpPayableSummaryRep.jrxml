@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SpPayableSummaryRep" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="42"/>
+	<property name="ireport.x" value="266"/>
+	<property name="ireport.y" value="99"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -244,7 +244,7 @@ order by  imp_year, imp_month, service_code, s_no]]>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="672" y="2" width="63" height="15" uuid="538af41b-a0ee-42cd-905c-f06466d1870b"/>
 					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" size="8" isBold="false"/>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{sp_vat}]]></textFieldExpression>
 				</textField>
@@ -254,42 +254,42 @@ order by  imp_year, imp_month, service_code, s_no]]>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="598" y="2" width="73" height="15" uuid="ed3b8496-010a-4d13-9171-3895fb0308e2"/>
 					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" size="8" isBold="false"/>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{sp_payable}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="546" y="2" width="51" height="15" uuid="a0bf4842-2265-4c38-ac5a-b2f03894bab0"/>
 					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" size="8" isBold="false"/>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{sp_royalty}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="474" y="2" width="71" height="15" uuid="6842754a-4669-4e39-9c22-003a89e1109d"/>
 					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" size="8" isBold="false"/>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{sp_inv_amt}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="738" y="2" width="64" height="15" uuid="5138b57a-b2fb-4ffb-9654-8f49684d5d90"/>
 					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" size="8" isBold="false"/>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{sp_tot_payable}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
 					<reportElement x="391" y="2" width="81" height="15" uuid="89d78842-857c-4adb-9790-61a5e1c089aa"/>
 					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" size="8" isBold="false"/>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{sp_tot_revenue}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0;-#,##0">
 					<reportElement x="323" y="2" width="64" height="15" uuid="d9afdd54-93fa-4403-a647-e1cb27e72a2a"/>
 					<textElement textAlignment="Right">
-						<font fontName="Times New Roman" size="8" isBold="false"/>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{sp_mo_final}]]></textFieldExpression>
 				</textField>
@@ -495,42 +495,42 @@ order by  imp_year, imp_month, service_code, s_no]]>
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="392" y="1" width="81" height="15" uuid="3c41a92c-e3a7-490b-bebf-d153f4bfaf2d"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{gtot_tot_revenue}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="739" y="1" width="64" height="15" uuid="ec4a8ac9-f9f3-4988-be65-da2864809d23"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{gtot_tot_payable}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="475" y="1" width="71" height="15" uuid="b5db5832-c933-4b2c-8208-3615a45ee3d6"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{gtot_inv_amt}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="547" y="1" width="51" height="15" uuid="d93a67c3-6c0b-4736-be8c-fcdd74669c60"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{gtot_royalty}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="599" y="1" width="73" height="15" uuid="95670301-1f3f-4801-ace2-f6e073b3b7eb"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{gtot_payable}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="673" y="1" width="63" height="15" uuid="72e60d57-bdef-4ee1-9a87-22b128a37e48"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" size="8" isBold="false"/>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{gtot_vat}]]></textFieldExpression>
 			</textField>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="VasDetailSubscriptionRevenueRep" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="627"/>
 	<property name="ireport.y" value="97"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -89,8 +89,7 @@ order by s_no, imp_year, imp_month, service_code, esme_code)) a]]>
 		<variableExpression><![CDATA[$F{CF_PAYABLE_AMT}]]></variableExpression>
 	</variable>
 	<variable name="tot_payable" class="java.math.BigDecimal" resetType="None">
-		<variableExpression><![CDATA[$F{CF_TOTAL_REV}.add($F{TSC_AMT}).add($F{CF_VAT_AMT})
-]]></variableExpression>
+		<variableExpression><![CDATA[$F{CF_TOTAL_REV}.add($F{TSC_AMT}).add($F{CF_VAT_AMT})]]></variableExpression>
 	</variable>
 	<variable name="sp_tot_payable" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$V{tot_payable}]]></variableExpression>
@@ -191,7 +190,7 @@ order by s_no, imp_year, imp_month, service_code, esme_code)) a]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Total Payable To SP]]></text>
+					<text><![CDATA[Total Revenue with Tax]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="379" y="27" width="86" height="22" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
