@@ -119,6 +119,7 @@
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname">
+                                                        <option value="VasProviderProfile">VAS Provider Profile</option>
                                                         <option value="SpList">VAS Provider List</option>
                                                         <option value="SpServiceList">VAS Provider's Status Detail List</option>
                                                         <option value="SpCpList">VAS Provider ESME/BG List</option>

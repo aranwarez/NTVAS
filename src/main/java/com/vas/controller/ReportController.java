@@ -179,11 +179,11 @@ public class ReportController {
 			parameters.put("pm_frm_month", request.getParameter("FRM_MONTH"));
 		}
 		if (request.getParameter("TO_YEAR") != null) {
-			filterparam = filterparam + "ToYear : " + request.getParameter("TO_YEAR").toString();
+			filterparam = filterparam + " ToYear : " + request.getParameter("TO_YEAR").toString();
 			parameters.put("pm_to_year", request.getParameter("TO_YEAR"));
 		}
 		if (request.getParameter("TO_MONTH") != null) {
-			filterparam = filterparam + "Month : " + request.getParameter("TO_MONTH").toString();
+			filterparam = filterparam + " Month : " + request.getParameter("TO_MONTH").toString();
 			parameters.put("pm_to_month", request.getParameter("TO_MONTH"));
 		}
 
@@ -194,7 +194,7 @@ public class ReportController {
 		} else if (request.getParameter("QFROM_DT") == null || request.getParameter("QFROM_DT").isEmpty()) {
 			Date FROM_DATE = new Date();
 			parameters.put("pm_frm_dt", FROM_DATE);
-			filterparam = filterparam + " From Today";
+			filterparam = filterparam + " From Today ";
 		}
 
 		if (request.getParameter("QTO_DT") != null && !request.getParameter("QTO_DT").isEmpty()) {

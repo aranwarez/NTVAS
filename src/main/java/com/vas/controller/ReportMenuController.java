@@ -65,7 +65,7 @@ public class ReportMenuController {
             return "/home";
         }
         model.addAttribute("MENU_ACCESS", menuaccess);
-        model.addAttribute("fx", "Report for SP balance");
+        model.addAttribute("fx", "Report for VAS Invoice");
 
         // getting list of paramater required
         SpDao sp = new SpDao();
@@ -253,6 +253,38 @@ public class ReportMenuController {
         model.addAttribute("Mon_list", mon.getNepMonthList());
 
         return "report/spsubrevenue";
+
+    }
+    
+    @RequestMapping(value = "/report/sppayable", method = RequestMethod.GET)
+    public String menupayableList(Locale locale, Model model, HttpServletRequest request)
+            throws Exception {
+        String url = request.getServletPath();
+
+        UserInformationModel user = (UserInformationModel) request.getSession().getAttribute("UserList");
+        MenuAccess menuaccess = CommonMenuDao.checkAccess(user.getROLE_CODE(), ".." + url);
+        if (menuaccess == null || menuaccess.getADD_FLAG().equals("N")) {
+            model.addAttribute("fx", "Unauthorized Page for this role!!");
+            return "/home";
+        }
+        model.addAttribute("MENU_ACCESS", menuaccess);
+        model.addAttribute("fx", "Report for Payable");
+
+        // getting list of paramater required
+        SpDao sp = new SpDao();
+        model.addAttribute("Sp_list", sp.getSpList());
+        BankDao bank = new BankDao();
+
+        VASServiceDao VASSER = new VASServiceDao();
+        model.addAttribute("VASSer_list", VASSER.getVasServiceList());
+
+        CommonDateDao DAT = new CommonDateDao();
+        model.addAttribute("Date_list", DAT.getDateList());
+
+        CommonDateDao mon = new CommonDateDao();
+        model.addAttribute("Mon_list", mon.getNepMonthList());
+
+        return "report/sppayable";
 
     }
 }
