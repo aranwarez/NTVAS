@@ -108,43 +108,43 @@ order by 1, sp_name, service_code, item_code, sharing_type desc]]>
 					<textFieldExpression><![CDATA[$F{CATEGORY}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="2" y="26" width="56" height="15" uuid="82e0de46-b29d-4630-93c6-1acc4edb70ce"/>
-					<textElement>
+					<reportElement x="43" y="26" width="56" height="15" uuid="82e0de46-b29d-4630-93c6-1acc4edb70ce"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[VAS Provider:]]></text>
+					<text><![CDATA[VAS Provider]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="174" y="29" width="76" height="15" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
-					<textElement>
+					<reportElement x="213" y="26" width="48" height="15" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Service]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="299" y="29" width="44" height="15" uuid="56ede31a-d561-4a24-a2a3-874183d90183"/>
-					<textElement textAlignment="Right">
+					<reportElement x="299" y="26" width="44" height="15" uuid="56ede31a-d561-4a24-a2a3-874183d90183"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Revenue]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="360" y="29" width="44" height="15" uuid="35513551-f59e-409a-800f-a8e0956716ca"/>
-					<textElement textAlignment="Right">
+					<reportElement x="360" y="26" width="44" height="15" uuid="35513551-f59e-409a-800f-a8e0956716ca"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[TSC]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="431" y="29" width="44" height="15" uuid="a593b295-c408-4c04-ba62-6c2f0a4df2a2"/>
-					<textElement textAlignment="Right">
+					<reportElement x="431" y="26" width="44" height="15" uuid="a593b295-c408-4c04-ba62-6c2f0a4df2a2"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[VAT]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="509" y="29" width="44" height="15" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
-					<textElement textAlignment="Right">
+					<reportElement x="509" y="26" width="44" height="15" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total]]></text>
@@ -156,11 +156,18 @@ order by 1, sp_name, service_code, item_code, sharing_type desc]]>
 					<reportElement x="0" y="45" width="556" height="1" uuid="1614080b-b827-4b69-9e84-72789c712c8a"/>
 				</line>
 				<staticText>
-					<reportElement x="250" y="29" width="49" height="15" uuid="92588a74-071d-4d63-9c9d-4793bbb249fb"/>
-					<textElement>
+					<reportElement x="262" y="26" width="37" height="15" uuid="92588a74-071d-4d63-9c9d-4793bbb249fb"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Sharing]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="26" width="32" height="15" uuid="2a3bd1d0-8b7d-4ae9-b664-152ade58b4a2"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SNo.]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -303,7 +310,7 @@ order by 1, sp_name, service_code, item_code, sharing_type desc]]>
 				<textFieldExpression><![CDATA[$V{tot_amt}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="174" y="1" width="76" height="15" uuid="acb2533b-9099-4a8a-8266-7ec0d60b3f0a"/>
+				<reportElement x="213" y="1" width="48" height="15" uuid="acb2533b-9099-4a8a-8266-7ec0d60b3f0a"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
@@ -331,18 +338,25 @@ order by 1, sp_name, service_code, item_code, sharing_type desc]]>
 				<textFieldExpression><![CDATA[$F{VAT_AMT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="0" width="169" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
+				<reportElement x="43" y="0" width="169" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SP_NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="1" width="37" height="15" uuid="e84094a0-1066-424c-9864-5a455cfe9460"/>
+				<reportElement x="262" y="1" width="25" height="15" uuid="e84094a0-1066-424c-9864-5a455cfe9460"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SHARING_TYPE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="42" height="15" uuid="c252b0e6-cdec-4bb2-924d-8c0175a15d61"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SP_CODE_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

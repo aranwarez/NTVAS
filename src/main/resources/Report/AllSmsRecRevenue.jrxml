@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SmsAlertRevenue" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="90"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="65"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -138,43 +138,43 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 		<groupHeader>
 			<band height="47">
 				<textField>
-					<reportElement x="364" y="7" width="169" height="15" uuid="579c8118-c45b-43e5-9129-697b64e2ef19"/>
-					<textElement>
+					<reportElement x="364" y="3" width="169" height="15" uuid="579c8118-c45b-43e5-9129-697b64e2ef19"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{S_NO}+":"+$F{SP_NAME}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{S_NO}+"-"+$F{SP_NAME}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="2" y="26" width="56" height="15" uuid="82e0de46-b29d-4630-93c6-1acc4edb70ce"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Year/Month]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="299" y="29" width="44" height="15" uuid="56ede31a-d561-4a24-a2a3-874183d90183"/>
-					<textElement textAlignment="Right">
+					<reportElement x="299" y="26" width="44" height="15" uuid="56ede31a-d561-4a24-a2a3-874183d90183"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Revenue]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="360" y="29" width="44" height="15" uuid="35513551-f59e-409a-800f-a8e0956716ca"/>
-					<textElement textAlignment="Right">
+					<reportElement x="360" y="26" width="44" height="15" uuid="35513551-f59e-409a-800f-a8e0956716ca"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[TSC]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="431" y="29" width="44" height="15" uuid="a593b295-c408-4c04-ba62-6c2f0a4df2a2"/>
-					<textElement textAlignment="Right">
+					<reportElement x="431" y="26" width="44" height="15" uuid="a593b295-c408-4c04-ba62-6c2f0a4df2a2"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[VAT]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="509" y="29" width="44" height="15" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
-					<textElement textAlignment="Right">
+					<reportElement x="509" y="26" width="44" height="15" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total]]></text>
@@ -186,36 +186,36 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 					<reportElement x="0" y="45" width="556" height="1" uuid="1614080b-b827-4b69-9e84-72789c712c8a"/>
 				</line>
 				<staticText>
-					<reportElement x="126" y="29" width="49" height="15" uuid="92588a74-071d-4d63-9c9d-4793bbb249fb"/>
-					<textElement textAlignment="Right">
+					<reportElement x="126" y="26" width="49" height="15" uuid="92588a74-071d-4d63-9c9d-4793bbb249fb"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Count/NTMT]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="232" y="28" width="44" height="15" uuid="dde530d5-e5cd-421e-98cb-3914ffbc86b3"/>
-					<textElement textAlignment="Right">
+					<reportElement x="232" y="26" width="44" height="15" uuid="dde530d5-e5cd-421e-98cb-3914ffbc86b3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Rate]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="3" y="8" width="169" height="15" uuid="a1b8b404-77d1-45ff-8366-331d6e77bf52"/>
-					<textElement>
+					<reportElement x="3" y="3" width="169" height="15" uuid="a1b8b404-77d1-45ff-8366-331d6e77bf52"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{SMS_TYPE}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="74" y="29" width="49" height="15" uuid="a1994d6c-f262-4941-861c-1d2560423fdb"/>
-					<textElement textAlignment="Right">
+					<reportElement x="74" y="26" width="49" height="15" uuid="a1994d6c-f262-4941-861c-1d2560423fdb"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[NTMO]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="179" y="28" width="49" height="15" uuid="b6516b57-d797-494f-9d89-7060b5a90550"/>
-					<textElement textAlignment="Right">
+					<reportElement x="179" y="26" width="49" height="15" uuid="b6516b57-d797-494f-9d89-7060b5a90550"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[EXTRAMT]]></text>
@@ -450,14 +450,14 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 			<textField>
 				<reportElement x="0" y="0" width="30" height="15" uuid="acb2533b-9099-4a8a-8266-7ec0d60b3f0a"/>
 				<textElement>
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{IMP_YEAR}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="31" y="0" width="45" height="15" uuid="78bf8b72-118e-4658-9488-bda7c06e427c"/>
 				<textElement>
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{IMP_MONTH}]]></textFieldExpression>
 			</textField>
@@ -468,7 +468,7 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MT1NT}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00;-#,##0.00">
 				<reportElement x="225" y="0" width="50" height="15" uuid="77da57e8-f06d-407b-b003-d4bddb5d5e06"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8"/>
