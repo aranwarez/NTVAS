@@ -179,8 +179,9 @@
                                             <tr><td>Report Name</td>
                                                 <td>
                                                     <select name="reportname">
-                                                        <option value="VasSubscriptionRevenueRep">VAS Subscription Revenue Report)</option>
-                                                        <option value="VasDetailSubscriptionRevenueRep">VAS Detail Subscription Revenue)</option>
+                                                        <option value="VasSubscriptionRevenueRep">Overall Subscription Revenue</option>
+                                                        <option value="VasDetailSubscriptionRevenueRep">Partner Subscription Revenue)</option>
+                                                        <option value="ConsolidateSubscriptionRevenue">Consolidated Subscription Revenue)</option>
                                                     </select>
                                                 </td>
                                             </tr>

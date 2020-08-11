@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SpPayableSummaryRep" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="266"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="99"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -120,28 +120,28 @@ order by  imp_year, imp_month, service_code, s_no]]>
 		<groupHeader>
 			<band height="54">
 				<textField>
-					<reportElement x="65" y="0" width="37" height="15" uuid="053756a4-2c35-46de-8ac9-ae33502b0ab2"/>
-					<textElement>
+					<reportElement x="65" y="1" width="37" height="15" uuid="053756a4-2c35-46de-8ac9-ae33502b0ab2"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{IMP_YEAR}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="102" y="0" width="31" height="15" uuid="86a7f676-2163-4ecb-bfd2-045435b612a7"/>
-					<textElement>
+					<reportElement x="102" y="1" width="31" height="15" uuid="86a7f676-2163-4ecb-bfd2-045435b612a7"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{IMP_MONTH}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="3" y="1" width="58" height="15" uuid="33d30ca9-1e9c-4cdf-86eb-ae67c80280da"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Invoice Month:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="2" y="19" width="51" height="30" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
+					<reportElement x="32" y="19" width="51" height="30" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -182,21 +182,21 @@ order by  imp_year, imp_month, service_code, s_no]]>
 					<reportElement x="0" y="51" width="802" height="1" uuid="1614080b-b827-4b69-9e84-72789c712c8a"/>
 				</line>
 				<textField>
-					<reportElement x="234" y="0" width="71" height="15" uuid="32ec3e7c-174e-49a2-a5ff-693b5005b91e"/>
-					<textElement>
+					<reportElement x="234" y="1" width="71" height="15" uuid="32ec3e7c-174e-49a2-a5ff-693b5005b91e"/>
+					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{SERVICE_CODE}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="172" y="1" width="58" height="15" uuid="0b29cb4e-ef67-437f-9c0d-94779addd850"/>
-					<textElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[VAS Service:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="53" y="19" width="221" height="30" uuid="5b1456d6-3b75-4212-a0cb-7a572fb00504"/>
+					<reportElement x="83" y="19" width="191" height="30" uuid="5b1456d6-3b75-4212-a0cb-7a572fb00504"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -229,6 +229,13 @@ order by  imp_year, imp_month, service_code, s_no]]>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total Client]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="2" y="20" width="30" height="30" uuid="06d651ee-482b-44c1-80b8-4a0093112229"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[SNo.]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -266,7 +273,7 @@ order by  imp_year, imp_month, service_code, s_no]]>
 					<textFieldExpression><![CDATA[$V{sp_royalty}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.00;-#,##0.00">
-					<reportElement x="474" y="2" width="71" height="15" uuid="6842754a-4669-4e39-9c22-003a89e1109d"/>
+					<reportElement x="475" y="2" width="71" height="15" uuid="6842754a-4669-4e39-9c22-003a89e1109d"/>
 					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -287,7 +294,7 @@ order by  imp_year, imp_month, service_code, s_no]]>
 					<textFieldExpression><![CDATA[$V{sp_tot_revenue}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0;-#,##0">
-					<reportElement x="323" y="2" width="64" height="15" uuid="d9afdd54-93fa-4403-a647-e1cb27e72a2a"/>
+					<reportElement x="324" y="2" width="64" height="15" uuid="d9afdd54-93fa-4403-a647-e1cb27e72a2a"/>
 					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -378,7 +385,7 @@ order by  imp_year, imp_month, service_code, s_no]]>
 	<detail>
 		<band height="17" splitType="Stretch">
 			<textField>
-				<reportElement x="3" y="1" width="50" height="15" uuid="d197ff70-85ac-4f8a-a3cb-e5ba39440e5e"/>
+				<reportElement x="33" y="1" width="50" height="15" uuid="d197ff70-85ac-4f8a-a3cb-e5ba39440e5e"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
@@ -392,7 +399,7 @@ order by  imp_year, imp_month, service_code, s_no]]>
 				<textFieldExpression><![CDATA[$F{CF_VAT_AMT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="54" y="1" width="220" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
+				<reportElement x="84" y="1" width="190" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
@@ -446,6 +453,13 @@ order by  imp_year, imp_month, service_code, s_no]]>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TOTAL_ESME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="29" height="15" uuid="f7e38a77-b8a1-4591-b659-25838800d30a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SP_CODE_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
