@@ -275,7 +275,17 @@ function itemchange(a) {
 function calc(a) {
 	//debugger;
 	var itemid = a.id.substring(4);
+	//Checking for tscflag and vatflag if zero storing globaltscvat to
+	//temp variable need to revert to global again
+	var temptsc=globaltsc;
+	var tempvat=globalvat;
+	if(Number($('#tscflag' + itemid).val())==0)
+		globaltsc=0;
+	if(Number($('#tscflag' + itemid).val())==0)
+		globaltsc=0;
+	
 	// for billing item type
+	
 
 	if ($('#catflag' + itemid).val() == 'SERVICE' || $('#catflag' + itemid).val() == 'BILLITEM' ) {
 		var divisor = (1 + (globaltsc / 100) + ((globalvat / 100) * (1 + (globaltsc / 100))));
@@ -317,10 +327,26 @@ function calc(a) {
 	}
 	// getting sum of footer
 	getsumoffooter();
+	
+	
+	//reverting original global tsc vat from temp
+	globaltsc=temptsc;
+	globalvat=tempvat;
 }
 
 function revcalc(a){
 	var itemid = a.id.substring(4);
+	
+	//Checking for tscflag and vatflag if zero storing globaltscvat to
+	//temp variable need to revert to global again
+	var temptsc=globaltsc;
+	var tempvat=globalvat;
+	if(Number($('#tscflag' + itemid).val())==0)
+		globaltsc=0;
+	if(Number($('#tscflag' + itemid).val())==0)
+		globaltsc=0;
+	
+	
 
 	if ($('#catflag' + itemid).val() == 'SERVICE' ) {
 		var divisor = (1 + (globaltsc / 100) + ((globalvat / 100) * (1 + (globaltsc / 100))));
@@ -337,6 +363,9 @@ function revcalc(a){
 		
 	}
 	
+	//reverting original global tsc vat from temp
+	globaltsc=temptsc;
+	globalvat=tempvat;
 }
 
 function getsumoffooter() {
