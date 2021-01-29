@@ -313,7 +313,7 @@ function calc(a) {
 
 	$('#tsc' + itemid).html(tsc);
 	var vat = 0;
-	if ($('#tscflag' + itemid).val() != 0) {
+	if ($('#vatflag' + itemid).val() != 0) {
 		vat = globalvat * 0.01 * Number(tsc + (rate * quantity));
 		vat = Number(vat.toFixed(2));
 	}
