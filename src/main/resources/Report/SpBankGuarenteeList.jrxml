@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SpBankGuarenteeList" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="610"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -281,14 +281,14 @@ ORDER BY 1,7]]>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{BANK_GUARENTEE_DATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{BANK_VALIDITY_DATE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="757" y="1" width="44" height="15" uuid="51634c1a-cfff-49ad-aa3e-9b72fc4c2bd1"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{BANK_GUARENTEE_DATE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{POST_DT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
