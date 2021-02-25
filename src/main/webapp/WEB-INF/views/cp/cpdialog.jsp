@@ -131,7 +131,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <label for="afsflag">AFS</label> 
+                                <label for="afsflag">Toll Free</label> 
                                 <select style="width: 280px;" class="form-control" name="AFS_FLAG" id="AFS_FLAG">
                                     <option value='N'>N</option>
                                     <option value='Y'>Y</option>
@@ -287,7 +287,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label for="afsflag">AFS</label> 
+                                    <label for="afsflag">Toll Free</label> 
                                     <select style="width: 280px;" class="form-control" name="EDITAFS_FLAG" id="EDITAFS_FLAG">
                                         <option value='N'>N</option>
                                         <option value='Y'>Y</option>

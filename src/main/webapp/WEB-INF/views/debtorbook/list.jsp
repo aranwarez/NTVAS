@@ -137,8 +137,7 @@
 											<th>TSC</th>
 											<th>VAT</th>
 											<th>Total</th>
-											<th>Bal (W/O TAX)</th>
-											<th>Bal (W TAX)</th>
+											
 						
 										</tr>
 									</thead>
@@ -153,9 +152,7 @@
 
 											<th id="sumvat">-</th>
 											<th id="sumtot">-</th>
-											<th id="sumbal">-</th>
-											<th id="sumbaltax">-</th>
-
+											
 
 										</tr>
 									</tfoot>
@@ -166,25 +163,13 @@
 							<!-- /.box-body -->
 							<hr>
 							<table class="table-condensed">
-								<tr>
-									<td>Bank</td>
-									<td><select style="width: 400px;" name="BANK_CODE"
-										id="BANK_CODE">
-											<option value=''>Select :</option>
-											<c:forEach var="SP" items="${bank_list}">
-												<option value="${SP.BANK_CD}">${SP.BANK_NAME}
-													${SP.BANK_CODE}</option>
-											</c:forEach>
-									</select></td>
-									<td>Received Amount</td>
-									<td><input style="text-align: right"
-										onchange="number2text(this.value)" class="form-control"
-										id="AMT" placeholder="Enter Amount" type="number"></td>
-								</tr>
+								
 								<tr>
 									<td><label>Remarks</label></td>
-									<td><input type="text" id="remarks" class="form-control"
-										placeholder="Enter Remarks"></td>
+									<td><textarea id="remarks" name="w3review" rows="4" cols="100" placeholder="Enter Remarks"></textarea>
+									
+<!-- 									<input type="text" id="remarks" class="form-control" -->
+<!-- 										placeholder="Enter Remarks"></td> -->
 								</tr>
 								<tr>
 									<td><label>Amount In Words</label></td>
@@ -214,7 +199,7 @@
 							</table>
 							<form id="my_form" class="form" action="../ReportView"
 								method=post target="_blank">
-								<input type="hidden" name="reportname" value="CashSaleReceipt">
+								<input type="hidden" name="reportname" value="DebitBook">
 								<input type="hidden" name="TRANS_NO" id="hiddentransno">
 							</form>
 						</div>
@@ -255,9 +240,9 @@
 	<jsp:include page="${request.contextPath}/footJS"></jsp:include>
 
 
-	<script src="<c:url value="/resources/function/SalesBill/Bill.js" />"></script>
+	<script src="<c:url value="/resources/function/DebtorBook/Bill.js" />"></script>
 	<script
-		src="<c:url value="/resources/function/SalesBill/Amt2Words.js" />"></script>
+		src="<c:url value="/resources/function/DebtorBook/Amt2Words.js" />"></script>
 	<script src="<c:url value="/resources/adminltd/js/commonajax.js" />"></script>
 
 
