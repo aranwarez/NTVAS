@@ -24,11 +24,7 @@ $(document).ready(function() {
 		    }
 	});
 
-	$("#BANK_CODE").select2({
-		placeholder : "Select Bank",
-		allowClear : true
-	});
-
+	
 	$('.nepali-calendar').nepaliDatePicker();
 
 	getTaxableRate();
@@ -138,12 +134,7 @@ function getTaxableRate() {
 
 }
 
-function getbank() {
-	$.get('../cashsale/getbankList', {}, function(response) {
 
-	});
-
-}
 
 function additem() {
 	rowcount = rowcount + 1;
@@ -197,15 +188,8 @@ function additem() {
 	appendrow = appendrow
 			+ '<td><span id="total'
 			+ rowcount
-			+ '" style="text-align:right;"type="number" min="0" class="totclass"></span></td>';
-	appendrow = appendrow
-	+ '<td><span id="totalbal'
-	+ rowcount
-	+ '" style="text-align:right;"type="number" min="0" class="totbalclass"></span></td>';
-	appendrow = appendrow
-	+ '<td><span id="totalbalvat'
-	+ rowcount
-	+ '" style="text-align:right;"type="number" min="0" class="totbalvatclass"></span></td></tr>';
+			+ '" style="text-align:right;"type="number" min="0" class="totclass"></span></td></tr>';
+	
 
 	
 	
@@ -213,7 +197,7 @@ function additem() {
 	$('#example1').append(appendrow);
 
 	$.each(itemlist, function(key, value) {
-		if (value.IS_RECURRING !== 'T') {
+		if (value.IS_RECURRING !== 'T' && value.CATEGORY_CODE == "DEBBOOK") {
 			$('#item' + rowcount)
 					.append(
 							new Option(value.DESCRIPTION, value.ITEM_CODE,
@@ -232,8 +216,6 @@ function itemchange(a) {
 	$('#itemcode' + itemid).html(a.value);
 
 	// filling rate and
-	$('#totalbal'+  itemid).html('X');
-	$('#totalbalvat'+  itemid).html('X');	
 
 	$.each(itemlist, function(key, value) {
 		if (value.ITEM_CODE === a.value) {
@@ -243,15 +225,13 @@ function itemchange(a) {
 				$('#tscflag' + itemid).val(value.TAXABLE_AMT);
 				$('#vatflag' + itemid).val(value.VATABLE_AMT);
 				$('#catflag' + itemid).val(value.CATEGORY_CODE);
-				if (value.CATEGORY_CODE == "SERVICE" || value.CATEGORY_CODE == "BILLITEM" || value.CATEGORY_CODE == "DEBBOOK") {
+				if (value.CATEGORY_CODE == "SERVICE" || value.CATEGORY_CODE == "BILLITEM") {
 					$('#rate' + itemid).hide();
 					$('#pamt' + itemid).show();
 					$.get('../payment/getSpdueforbilling', {
 						ITEM_CODE : a.value,
 						SP_CODE : $('#SP_CODE').val()
 					}, function(response) {
-					$('#totalbal'+  itemid).html(response.PAYABLE_BEFORE_TAX);
-					$('#totalbalvat'+  itemid).html(response.BAL_AMT_WITH_TAX);	
 					$('#quan' + itemid).val('1');
 					$('#quan' + itemid).prop('readonly', true);
 					});
@@ -287,7 +267,7 @@ function calc(a) {
 	// for billing item type
 	
 
-	if ($('#catflag' + itemid).val() == 'SERVICE' || $('#catflag' + itemid).val() == 'BILLITEM' || $('#catflag' + itemid).val() == 'DEBBOOK' ) {
+	if ($('#catflag' + itemid).val() == 'SERVICE' || $('#catflag' + itemid).val() == 'BILLITEM' ) {
 		var divisor = (1 + (globaltsc / 100) + ((globalvat / 100) * (1 + (globaltsc / 100))));
 		var rev = $('#pamt'+itemid).val()/divisor;
 		tsc= ((globaltsc/100)*rev).toFixed(2);
@@ -373,7 +353,7 @@ function getsumoffooter() {
 	tfooter('tscclass', 'sumtsc', null);
 	tfooter('vatclass', 'sumvat', null);
 	tfooter('totclass', 'sumtot', null);
-
+	number2text($('#sumtot').html());
 }
 function removeitem(a) {
 	var itemid = a.id.substring(4);
@@ -407,7 +387,7 @@ function post() {
 	var validflag=true;
 	$(".revclass").each(function() {
 		var rowid = (this.id.substring(3));
-		debugger;
+	//	debugger;
 		if(isempty($('#rev' + rowid).html()) || Number($('#rev' + rowid).html())<=0 ){
 			alert('Invalid Amount!!!!');
 			$('#pamt' + rowid).focus();
@@ -428,10 +408,10 @@ function post() {
 	// alert(JSON.stringify(temparray));
 	var param = {
 		SP_CODE : $('#SP_CODE').val(),
-		nepdate : $('#nepdate').val(),
-		BANK_CODE : $('#BANK_CODE').val(),
-		// REMARKS:$('#remarks').val(),
-		AMT : $('#AMT').val()
+		nepdate : $('#nepdate').val()
+	//	BANK_CODE : $('#BANK_CODE').val(),
+	//	REMARKS:$('#remarks').val()
+	//	AMT : $('#AMT').val()
 
 	};
 	var valid = validateform(param);
@@ -439,8 +419,8 @@ function post() {
 		alert("Invalid !!!!! " + valid)
 		return false;
 	}
-	if ($('#AMT').val() != $('#sumtot').html()) {
-		alert("Invalid Bank Amount");
+	if (Number($('#sumtot').html())<=0) {
+		alert("Invalid Transaction Amount");
 		return false;
 	}
 	if(validflag==false){
@@ -452,12 +432,11 @@ function post() {
 	$("#savebtn").html('Saving...');
 
 	// posting data
-	$.post('../cashsale/savebill', {
+	$.post('../debtor/savebill', {
 		SP_CODE : $('#SP_CODE').val(),
 		nepdate : $('#nepdate').val(),
-		BANK_CODE : $('#BANK_CODE').val(),
 		REMARKS : $('#remarks').val(),
-		AMT : $('#AMT').val(),
+		//AMT : $('#AMT').val(),
 		DATA : JSON.stringify(temparray)
 
 	}, function(response) {

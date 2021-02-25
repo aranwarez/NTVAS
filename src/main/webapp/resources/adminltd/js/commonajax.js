@@ -6,6 +6,10 @@ $(document).ajaxStart(function() {
 	$('.overlay').fadeIn();
 });
 
+$( document ).ajaxComplete(function() {
+	$('.overlay').fadeOut();
+	});
+
 $(document).ajaxStop(function() {
 	$('.overlay').fadeOut();
 });

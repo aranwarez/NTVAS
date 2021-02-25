@@ -156,7 +156,7 @@
                                                 <th>End Dt.</th>
                                                 <th>Sharing Type</th>
                                                 <th>Share(%)</th>
-                                                <th>AFS</th>
+                                                <th>Toll Free</th>
                                                 <th>Min Qty</th>
                                                 <th>Rental</th>
                                                 <th>VPN</th>
@@ -254,7 +254,9 @@
             <script>
                 $(function () {
 
-                    $('#example1').DataTable();
+                    $('#example1').DataTable({
+                        "lengthMenu": [[10, 25, 50, 100,500], [10, 25, 50, 100,500]]
+                    });
 
                 })
             </script>

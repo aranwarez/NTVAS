@@ -65,44 +65,54 @@
 			<section class="content-header">
 				<h1>${fx}</h1>
 				<ol class="breadcrumb">
-
-					<li><a href="list" class="btn bg-red"> <i
-							class="fa fa-backward"></i> BACK
-					</a></li>
-
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="#">Tables</a></li>
+					<li class="active">Data tables</li>
 				</ol>
-				<br />
-				<div style="margin: 0;" class="box">
 
-					<table class="table table-condensed">
-						<tr>
-							<td><label>Trans No.</label></td>
-							<td><input readonly type="text" id="transno"></td>
-							<td><label>Customer Name</label></td>
-							<td><select style="width: 400px;" name="QSP_CODE"
-								id="SP_CODE" onchange="getcustomerinfo(this.value)">
-									<option value=''>Select :</option>
-									<c:forEach var="SP" items="${Sp_list}">
-										<option value="${SP.SP_CODE}">${SP.SP_NAME}
-											${SP.SP_CODE}</option>
-									</c:forEach>
-							</select></td>
-							<td><label>Date : </label> <c:forEach var="DAT"
-									items="${Date_list}">
-									<input type="text" id="nepdate" value="${DAT.NEP_TODAY_DATE}"
-										class="nepali-calendar">
-								</c:forEach></td>
-						</tr>
-						<tr>
-							<td><label>Pan No.</label></td>
-							<td id="panno"></td>
-							<td><label>Address</label></td>
-							<td id="address"></td>
+				<table class="table-condensed">
+					<tr>
+						<td>Service Provider</td>
+						<td><select style="width: 400px;" name="QSP_CODE"
+							id="QSP_CODE">
+								<option value=''>Select :</option>
+								<c:forEach var="SP" items="${Sp_list}">
+									<option value="${SP.SP_CODE}">${SP.SP_NAME}
+										${SP.SP_CODE}</option>
+								</c:forEach>
+						</select></td>
 
-						</tr>
-					</table>
-				</div>
+						<td>Post/Cancel Flag</td>
+						<td><select style="width: 100px;" name="QPOST_FLAG"
+							id="QPOST_FLAG">
+								<option value='Y'>Posted</option>
+								<option value='C'>Canceled</option>
+								<option value=''>All</option>
+						</select></td>
+					</tr>
+					<tr>
+						<c:forEach var="DAT" items="${Date_list}">
+							<td>FromDt</td>
+							<td><input type="text" style="width: 150px;"
+								value="${DAT.NEP_FROM_DATE}"
+								class="nepali-calendar form-control" name="QFROM_DT"
+								id="QFROM_DT" placeholder="Enter Transaction from dt.">
+							</td>
+							<td>To Dt</td>
+							<td><input type="text" style="width: 150px;"
+								value="${DAT.NEP_TODAY_DATE}"
+								class="nepali-calendar form-control" name="QTO_DT" id="QTO_DT"
+								placeholder="Enter Transaction to dt."></td>
 
+							<td><input type="button" style="width: 150px;" value="QUERY"
+								onclick="getReceiptFilterList();"></td>
+						</c:forEach>
+					</tr>
+				</table>
+
+				<a href="bill" class="btn btn-primary pull-right"> <i
+					class="fa fa-plus"></i> Add
+				</a>
 			</section>
 
 			<!-- Main content -->
@@ -113,114 +123,69 @@
 						<!-- /.box -->
 
 						<div class="box">
-							<!-- 							<div class="box-header"> -->
-							<%-- 								<h3 class="box-title">${fx}</h3> --%>
-							<!-- 							</div> -->
+							<div class="box-header">
+								<h3 class="box-title">${fx}</h3>
+							</div>
 
+							<%
+								if (request.getParameter("sucess") != null) {
+							%>>
+							<div class="alert alert-success">
+								<strong> <%=request.getParameter("sucess")%>
+								</strong>
+							</div>
+							<%
+								}
+							%>
+							<%
+								if (request.getParameter("error") != null) {
+							%>>
+							<div class="alert alert-danger">
+								<strong> <%=request.getParameter("error")%>
+								</strong>
+							</div>
+							<%
+								}
+							%>
 							<div class="overlay">
 								<i class="fa fa-refresh fa-spin"></i>
 							</div>
-
 							<!-- /.box-header -->
 							<div class="box-body table-responsive">
 								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
-											<th style="text-align: center"><a href="#"
-												class="btn btn-default bg-green" onclick="additem()"> <i
-													class="fa fa-plus"></i>
-											</a></th>
-											<th>Name</th>
-											<th>Quantity</th>
-											<th>Rate</th>
-											<th>Revenue</th>
-											<th>TSC</th>
-											<th>VAT</th>
-											<th>Total</th>
-											<th>Bal (W/O TAX)</th>
-											<th>Bal (W TAX)</th>
-						
+											<th>TRANS_NO.</th>
+											<th>Date</th>
+											<th>CUSTOMER</th>
+											<th>Create By</th>
+											
+											<th>AMT</th>
+											<th>Remarks</th>
+											
+											<th>Create Dt</th>
+											<th>Cancel By</th>
+											<th>Cancel Dt</th>
+											<th>View</th>
+											<th>Cancel</th>
 										</tr>
 									</thead>
+
 									<tfoot>
 										<tr>
-											<th colspan="4">Total</th>
-
-
-											<th id="sumrev">-</th>
-
-											<th id="sumtsc">-</th>
-
-											<th id="sumvat">-</th>
-											<th id="sumtot">-</th>
-											<th id="sumbal">-</th>
-											<th id="sumbaltax">-</th>
-
-
+											<th colspan="4" style="text-align: right">Total Current:<BR>Total
+												Page
+											</th>
+											<th></th>
+											<th></th>
 										</tr>
 									</tfoot>
 
 								</table>
-
 							</div>
 							<!-- /.box-body -->
-							<hr>
-							<table class="table-condensed">
-								<tr>
-									<td>Bank</td>
-									<td><select style="width: 400px;" name="BANK_CODE"
-										id="BANK_CODE">
-											<option value=''>Select :</option>
-											<c:forEach var="SP" items="${bank_list}">
-												<option value="${SP.BANK_CD}">${SP.BANK_NAME}
-													${SP.BANK_CODE}</option>
-											</c:forEach>
-									</select></td>
-									<td>Received Amount</td>
-									<td><input style="text-align: right"
-										onchange="number2text(this.value)" class="form-control"
-										id="AMT" placeholder="Enter Amount" type="number"></td>
-								</tr>
-								<tr>
-									<td><label>Remarks</label></td>
-									<td><input type="text" id="remarks" class="form-control"
-										placeholder="Enter Remarks"></td>
-								</tr>
-								<tr>
-									<td><label>Amount In Words</label></td>
-									<td colspan="3"><input id="inwords" class="form-control"
-										type="text" readonly="readonly"></td>
-								</tr>
-
-								<tr>
-
-									<td>
-
-										<button id="savebtn" onclick="post()"
-											class='btn bg-blue myClickDisabledElm'>Save</button>
-									</td>
-									<td>
-
-
-										<button id="printbtn" type="submit" form="my_form"
-											class='btn bg-purple' disabled="disabled">Print</button>
-
-
-									</td>
-
-
-								</tr>
-
-							</table>
-							<form id="my_form" class="form" action="../ReportView"
-								method=post target="_blank">
-								<input type="hidden" name="reportname" value="CashSaleReceipt">
-								<input type="hidden" name="TRANS_NO" id="hiddentransno">
-							</form>
 						</div>
 						<!-- /.box -->
-
-
 					</div>
 					<!-- /.col -->
 				</div>
@@ -251,16 +216,14 @@
 	</div>
 	<!-- ./wrapper -->
 
+	<jsp:include page="${request.contextPath}/debtorbook/dialog"></jsp:include>
 
 	<jsp:include page="${request.contextPath}/footJS"></jsp:include>
 
-
-	<script src="<c:url value="/resources/function/SalesBill/Bill.js" />"></script>
-	<script
-		src="<c:url value="/resources/function/SalesBill/Amt2Words.js" />"></script>
+	
+	<script src="<c:url value="/resources/function/DebtorBook/Master.js" />"></script>
 	<script src="<c:url value="/resources/adminltd/js/commonajax.js" />"></script>
-
-
-
+		<script src="<c:url value="/resources/adminltd/js/currencyFormatter.js" />"></script>
+	
 </body>
 </html>
