@@ -55,7 +55,7 @@ order by sp_name]]>
 	<variable name="sp_tsc_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$F{TSC_AMT}]]></variableExpression>
 	</variable>
-	<variable name="sp_total_amt" class="java.math.BigDecimal" resetType="None">
+	<variable name="sp_total_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$F{TOTAL_AMT}]]></variableExpression>
 	</variable>
 	<variable name="sp_revenue_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">

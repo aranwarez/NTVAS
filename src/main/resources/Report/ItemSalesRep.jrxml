@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ItemSalesRep" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="335"/>
 	<property name="ireport.y" value="60"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -58,7 +58,7 @@ order by category_code, item_code]]>
 	<variable name="sp_tsc_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$F{TSC_AMT}]]></variableExpression>
 	</variable>
-	<variable name="sp_total_amt" class="java.math.BigDecimal" resetType="None">
+	<variable name="sp_total_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$F{TOTAL_AMT}]]></variableExpression>
 	</variable>
 	<variable name="sp_revenue_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
@@ -106,14 +106,14 @@ order by category_code, item_code]]>
 				</staticText>
 				<staticText>
 					<reportElement x="522" y="19" width="75" height="30" uuid="56ede31a-d561-4a24-a2a3-874183d90183"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[VAT]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="348" y="19" width="93" height="30" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total Revenue]]></text>
@@ -133,14 +133,14 @@ order by category_code, item_code]]>
 				</staticText>
 				<staticText>
 					<reportElement x="444" y="19" width="73" height="31" uuid="27b17e55-4d4b-4777-8c6d-a6452e9cfb73"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[TSC]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="600" y="19" width="99" height="30" uuid="f6c7166b-c8d2-4bb1-a309-a523cc4c0f82"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total Amt]]></text>

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BankLedgerRep" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="124"/>
+	<property name="ireport.y" value="110"/>
 	<parameter name="pm_cc_code" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -27,13 +27,15 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT s_no, (SELECT SP_NAME FROM m_sp WHERE sp_code=a.s_no) sp_name, trans_type, trans_no, trans_dt, common.to_bs(trans_dt) nep_trans_dt,
-item_code,dr_amt, cr_amt, (dr_amt-cr_amt) bal_amt, remarks, create_by, create_dt,
+DECODE(service_code||item_code||sharing_type,'SMS'||'EXTRAMT'||'Y',item_code||'(Sharing)','SMS'||'EXTRAMT'||'N',item_code||'(NonSharing)',
+'SMSALERT'||'EXTRAMT'||'N','SMS Alert', item_code) item_code,
+dr_amt, cr_amt, (dr_amt-cr_amt) bal_amt, remarks, create_by, create_dt,
 nvl((SELECT sum(total_amt) FROM vw_ledger
 where s_no=a.s_no AND item_code=a.item_code AND trans_dt<$P{pm_frm_dt}
 AND post_flag='Y'),0) opening_bal
 FROM
 (select s_no, trans_type, trans_no, trans_dt, imp_year, imp_month, item_code,
-dr_cr_flag, total_amt dr_amt, 0 cr_amt, remarks, create_by, create_dt
+dr_cr_flag, total_amt dr_amt, 0 cr_amt, remarks, create_by, create_dt,service_code, sharing_type
 from vw_ledger
 WHERE s_no=$P{pm_sp_code}
 AND service_code=nvl($P{pm_service},service_code)
@@ -43,7 +45,7 @@ AND dr_cr_flag=1
 AND post_flag='Y'
 UNION ALL
 select s_no, trans_type, trans_no, trans_dt, imp_year, imp_month, item_code,
-dr_cr_flag, 0 dr_amt, abs(total_amt) cr_amt, remarks, create_by, create_dt
+dr_cr_flag, 0 dr_amt, abs(total_amt) cr_amt, remarks, create_by, create_dt,service_code, sharing_type
 from vw_ledger
 WHERE s_no=$P{pm_sp_code}
 AND service_code=nvl($P{pm_service},service_code)
@@ -150,7 +152,7 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 					<textFieldExpression><![CDATA["Opening Balance:"]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="455" y="16" width="100" height="15" uuid="9d92aa92-9345-4a27-82fe-8e5a244ed1ae"/>
+					<reportElement x="465" y="16" width="90" height="15" uuid="9d92aa92-9345-4a27-82fe-8e5a244ed1ae"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -244,7 +246,7 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[VAS Service Provider Debtor Ledger]]></text>
+				<text><![CDATA[VAS Service Provider's Ledger]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -303,7 +305,7 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 				<textFieldExpression><![CDATA[$F{TRANS_TYPE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0">
-				<reportElement x="455" y="1" width="99" height="15" uuid="1312b8d3-65a4-4e15-b70c-4086d700bda0"/>
+				<reportElement x="465" y="1" width="89" height="15" uuid="1312b8d3-65a4-4e15-b70c-4086d700bda0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
