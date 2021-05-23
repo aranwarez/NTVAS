@@ -307,7 +307,7 @@ order by sp_code, service_code, sharing_type, esme_code]]>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
-				<text><![CDATA[VAS Provider wise ESME/BG Details]]></text>
+				<text><![CDATA[VAS Provider wise ESME Details]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
