@@ -40,177 +40,186 @@ import util.DbCon;
 @Controller
 public class ReportController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
 
-	@SuppressWarnings("deprecation")
-	@RequestMapping(value = "Report", method = RequestMethod.POST)
-	@ResponseBody
-	public void getRpt(HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
-		logger.info("Preparing for report download");
-		try {
-			InputStream jasperStream = this.getClass()
-					.getResourceAsStream("/Report/" + request.getParameter("reportname") + ".jasper");
-			// Map<String, Object> params = new HashMap<>();
-			// Date FROM_DT = CommonDateDao.convertDateAD(request.getParameter("FROM_DT"));
-			// Date TO_DATE = CommonDateDao.convertDateAD(request.getParameter("TO_DATE"));
+    @SuppressWarnings("deprecation")
+    @RequestMapping(value = "Report", method = RequestMethod.POST)
+    @ResponseBody
+    public void getRpt(HttpServletResponse response, HttpServletRequest request) throws JRException, IOException {
+        logger.info("Preparing for report download");
+        try {
+            InputStream jasperStream = this.getClass()
+                    .getResourceAsStream("/Report/" + request.getParameter("reportname") + ".jasper");
+            // Map<String, Object> params = new HashMap<>();
+            // Date FROM_DT = CommonDateDao.convertDateAD(request.getParameter("FROM_DT"));
+            // Date TO_DATE = CommonDateDao.convertDateAD(request.getParameter("TO_DATE"));
 
-			Map<String, Object> parameters = getMapParameters(request);
-			// parameters.put("pm_to_date", TO_DATE);
-			// UserInformationModel user = (UserInformationModel)
-			// request.getSession().getAttribute("UserList");
-			// parameters.put("pm_user", user.getUSER_ID());
+            Map<String, Object> parameters = getMapParameters(request);
+            // parameters.put("pm_to_date", TO_DATE);
+            // UserInformationModel user = (UserInformationModel)
+            // request.getSession().getAttribute("UserList");
+            // parameters.put("pm_user", user.getUSER_ID());
 
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DbCon.getConnection());
-			String reporttype = request.getParameter("reporttype");
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DbCon.getConnection());
+            String reporttype = request.getParameter("reporttype");
 
-			if (reporttype.equalsIgnoreCase("pdf")) {
-				OutputStream outStream = response.getOutputStream();
-				response.setContentType("application/x-pdf");
-				response.setHeader("Content-disposition", "inline; filename=Report.pdf");
-				JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+            if (reporttype.equalsIgnoreCase("pdf")) {
+                OutputStream outStream = response.getOutputStream();
+                response.setContentType("application/x-pdf");
+                response.setHeader("Content-disposition", "inline; filename=Report.pdf");
+                JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
 
-			} else if (reporttype.equalsIgnoreCase("XLS")) {
-				response.setContentType("application/xls");
-				response.setHeader("Content-Disposition", "inline; filename=\"report.xls\"");
-				JRExporter exporter = new JRXlsExporter();
-				OutputStream ouputStream = response.getOutputStream();
+            } else if (reporttype.equalsIgnoreCase("XLS")) {
+                response.setContentType("application/xls");
+                response.setHeader("Content-Disposition", "inline; filename=\"report.xls\"");
+                JRExporter exporter = new JRXlsExporter();
+                OutputStream ouputStream = response.getOutputStream();
 
-				exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-				exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream);
-				exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-				exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream);
-				exporter.setParameter(JRXlsAbstractExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
-				exporter.setParameter(JRXlsAbstractExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
-				exporter.setParameter(JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
-				exporter.setParameter(JRXlsAbstractExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-				exporter.setParameter(JRExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
-				exporter.setParameter(JRXlsAbstractExporterParameter.IS_IGNORE_GRAPHICS, Boolean.TRUE);
-				exporter.setParameter(JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS,
-						Boolean.TRUE);
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream);
+                exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+                exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, ouputStream);
+                exporter.setParameter(JRXlsAbstractExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+                exporter.setParameter(JRXlsAbstractExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+                exporter.setParameter(JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+                exporter.setParameter(JRXlsAbstractExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+                exporter.setParameter(JRExporterParameter.IGNORE_PAGE_MARGINS, Boolean.TRUE);
+                exporter.setParameter(JRXlsAbstractExporterParameter.IS_IGNORE_GRAPHICS, Boolean.TRUE);
+                exporter.setParameter(JRXlsAbstractExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS,
+                        Boolean.TRUE);
 
-				exporter.exportReport();
-				ouputStream.close();
+                exporter.exportReport();
+                ouputStream.close();
 
-			}
+            }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.warn(e.getMessage());
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.warn(e.getMessage());
+        }
+    }
 
-	@RequestMapping(value = "ReportView", method = RequestMethod.POST)
-	public ResponseEntity<byte[]> getRpt(HttpServletRequest request, HttpServletResponse response) {
-		logger.info("Preparing for report");
-		try {
-			InputStream jasperStream = this.getClass()
-					.getResourceAsStream("/Report/" + request.getParameter("reportname") + ".jasper");
-			// InputStream jasperStream =
-			// this.getClass().getResourceAsStream("/Report/SpBalanceRep.jasper");
-			// Map<String, Object> params = new HashMap<>();
+    @RequestMapping(value = "ReportView", method = RequestMethod.POST)
+    public ResponseEntity<byte[]> getRpt(HttpServletRequest request, HttpServletResponse response) {
+        logger.info("Preparing for report");
+        try {
+            InputStream jasperStream = this.getClass()
+                    .getResourceAsStream("/Report/" + request.getParameter("reportname") + ".jasper");
+            // InputStream jasperStream =
+            // this.getClass().getResourceAsStream("/Report/SpBalanceRep.jasper");
+            // Map<String, Object> params = new HashMap<>();
 
-			// Date FROM_DT = CommonDateDao.convertDateAD(request.getParameter("FROM_DT"));
-			Map<String, Object> parameters = getMapParameters(request);
+            // Date FROM_DT = CommonDateDao.convertDateAD(request.getParameter("FROM_DT"));
+            Map<String, Object> parameters = getMapParameters(request);
 
-			JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DbCon.getConnection());
+            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DbCon.getConnection());
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_PDF);
-			headers.add("content-disposition", "inline;filename=" + "Report.pdf");
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.add("content-disposition", "inline;filename=" + "Report.pdf");
 
-			// to download pdf automatically
-			// headers.setContentDispositionFormData("attachment", fileName);
-			// headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-			ResponseEntity<byte[]> responseview = new ResponseEntity<>(
-					JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);
-			return responseview;
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.warn(e.getMessage());
-		}
-		return null;
-	}
+            // to download pdf automatically
+            // headers.setContentDispositionFormData("attachment", fileName);
+            // headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+            ResponseEntity<byte[]> responseview = new ResponseEntity<>(
+                    JasperExportManager.exportReportToPdf(jasperPrint), headers, HttpStatus.OK);
+            return responseview;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.warn(e.getMessage());
+        }
+        return null;
+    }
 
-	private Map<String, Object> getMapParameters(HttpServletRequest request) throws SQLException {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("pm_comp_name", "NEPAL TELECOM");
-		parameters.put("pm_address", "Strategy Implementation & VAS Dept., Central Office");
+    private Map<String, Object> getMapParameters(HttpServletRequest request) throws SQLException {
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("pm_comp_name", "NEPAL TELECOM");
+        parameters.put("pm_address", "Strategy Implementation & VAS Dept., Central Office");
 
-		UserInformationModel user = (UserInformationModel) request.getSession().getAttribute("UserList");
-		parameters.put("pm_user", user.getUSER_ID());
+        UserInformationModel user = (UserInformationModel) request.getSession().getAttribute("UserList");
+        parameters.put("pm_user", user.getUSER_ID());
 
-		String filterparam = "";
+        String filterparam = "";
 
-		if (request.getParameter("TRANS_NO") != null) {
-			filterparam = filterparam + "Trans No. : " + request.getParameter("TRANS_NO").toString();
-			parameters.put("pm_trans_no", request.getParameter("TRANS_NO"));
-		}
-		if (request.getParameter("SP_CODE") != null  && !request.getParameter("SP_CODE").isEmpty()) {
-			filterparam = filterparam + "SPCode : " + request.getParameter("SP_CODE").toString();
-			parameters.put("pm_sp_code", request.getParameter("SP_CODE"));
-		} else if (request.getParameter("SP_CODE") == null || request.getParameter("SP_CODE").isEmpty()) {
-			filterparam = filterparam + " SPCode : All ";
-			parameters.put("pm_sp_code", request.getParameter("SP_CODE"));
-		}
-                if (request.getParameter("SERVICE_CODE") != null && !request.getParameter("SERVICE_CODE").isEmpty()) {
-			filterparam = filterparam + " Service : " + request.getParameter("SERVICE_CODE").toString();
-			parameters.put("pm_service", request.getParameter("SERVICE_CODE"));
-		} else if (request.getParameter("SERVICE_CODE") == null || request.getParameter("SERVICE_CODE").isEmpty()) {
-			filterparam = filterparam + " Service : All ";
-			parameters.put("pm_service", request.getParameter("SERVICE_CODE"));
-		}
-                
-                if (request.getParameter("ITEM_CODE") != null && !request.getParameter("ITEM_CODE").isEmpty()) {
-			filterparam = filterparam + " Item : " + request.getParameter("ITEM_CODE").toString();
-			parameters.put("pm_item_code", request.getParameter("ITEM_CODE"));
-		} else if (request.getParameter("ITEM_CODE") == null || request.getParameter("ITEM_CODE").isEmpty()) {
-			filterparam = filterparam + " Item : All ";
-			parameters.put("pm_item_code", request.getParameter("ITEM_CODE"));
-		}
-                        
-		if (request.getParameter("FRM_YEAR") != null) {
-			filterparam = filterparam + " FromYear : " + request.getParameter("FRM_YEAR").toString();
-			parameters.put("pm_frm_year", request.getParameter("FRM_YEAR"));
-		}
-		if (request.getParameter("FRM_MONTH") != null) {
-			filterparam = filterparam + " Month : " + request.getParameter("FRM_MONTH").toString();
-			parameters.put("pm_frm_month", request.getParameter("FRM_MONTH"));
-		}
-		if (request.getParameter("TO_YEAR") != null) {
-			filterparam = filterparam + " ToYear : " + request.getParameter("TO_YEAR").toString();
-			parameters.put("pm_to_year", request.getParameter("TO_YEAR"));
-		}
-		if (request.getParameter("TO_MONTH") != null) {
-			filterparam = filterparam + " Month : " + request.getParameter("TO_MONTH").toString();
-			parameters.put("pm_to_month", request.getParameter("TO_MONTH"));
-		}
+        if (request.getParameter("TRANS_NO") != null) {
+            filterparam = filterparam + "Trans No. : " + request.getParameter("TRANS_NO").toString();
+            parameters.put("pm_trans_no", request.getParameter("TRANS_NO"));
+        }
+        if (request.getParameter("SP_CODE") != null && !request.getParameter("SP_CODE").isEmpty()) {
+            filterparam = filterparam + "SPCode : " + request.getParameter("SP_CODE").toString();
+            parameters.put("pm_sp_code", request.getParameter("SP_CODE"));
+        } else if (request.getParameter("SP_CODE") == null || request.getParameter("SP_CODE").isEmpty()) {
+            filterparam = filterparam + " SPCode : All ";
+            parameters.put("pm_sp_code", request.getParameter("SP_CODE"));
+        }
+        if (request.getParameter("SERVICE_CODE") != null && !request.getParameter("SERVICE_CODE").isEmpty()) {
+            filterparam = filterparam + " Service : " + request.getParameter("SERVICE_CODE").toString();
+            parameters.put("pm_service", request.getParameter("SERVICE_CODE"));
+        } else if (request.getParameter("SERVICE_CODE") == null || request.getParameter("SERVICE_CODE").isEmpty()) {
+            filterparam = filterparam + " Service : All ";
+            parameters.put("pm_service", request.getParameter("SERVICE_CODE"));
+        }
 
-		if (request.getParameter("QFROM_DT") != null && !request.getParameter("QFROM_DT").isEmpty()) {
-			Date FROM_DATE = CommonDateDao.convertDateAD(request.getParameter("QFROM_DT"));
-			parameters.put("pm_frm_dt", FROM_DATE);
-			filterparam = filterparam + " From Date : " + request.getParameter("QFROM_DT").toString();
-		} else if (request.getParameter("QFROM_DT") == null || request.getParameter("QFROM_DT").isEmpty()) {
-			Date FROM_DATE = new Date();
-			parameters.put("pm_frm_dt", FROM_DATE);
-			filterparam = filterparam + " From Today ";
-		}
+        if (request.getParameter("ITEM_CODE") != null && !request.getParameter("ITEM_CODE").isEmpty()) {
+            filterparam = filterparam + " Item : " + request.getParameter("ITEM_CODE").toString();
+            parameters.put("pm_item_code", request.getParameter("ITEM_CODE"));
+        } else if (request.getParameter("ITEM_CODE") == null || request.getParameter("ITEM_CODE").isEmpty()) {
+            filterparam = filterparam + " Item : All ";
+            parameters.put("pm_item_code", request.getParameter("ITEM_CODE"));
+        }
 
-		if (request.getParameter("QTO_DT") != null && !request.getParameter("QTO_DT").isEmpty()) {
-			Date TO_DATE = CommonDateDao.convertDateAD(request.getParameter("QTO_DT"));
-			parameters.put("pm_to_dt", TO_DATE);
-			filterparam = filterparam + " To Date : " + request.getParameter("QTO_DT").toString();
-		} else if (request.getParameter("QTO_DT") == null || request.getParameter("QTO_DT").isEmpty()) {
-			Date TO_DATE = new Date();
-			parameters.put("pm_to_dt", TO_DATE);
-			filterparam = filterparam + " To Date : Till Today";
-		}
+        if (request.getParameter("FRM_YEAR") != null) {
+            filterparam = filterparam + " FromYear : " + request.getParameter("FRM_YEAR").toString();
+            parameters.put("pm_frm_year", request.getParameter("FRM_YEAR"));
+        }
+        if (request.getParameter("FRM_MONTH") != null) {
+            filterparam = filterparam + " Month : " + request.getParameter("FRM_MONTH").toString();
+            parameters.put("pm_frm_month", request.getParameter("FRM_MONTH"));
+        }
+        if (request.getParameter("TO_YEAR") != null) {
+            filterparam = filterparam + " ToYear : " + request.getParameter("TO_YEAR").toString();
+            parameters.put("pm_to_year", request.getParameter("TO_YEAR"));
+        }
+        if (request.getParameter("TO_MONTH") != null) {
+            filterparam = filterparam + " Month : " + request.getParameter("TO_MONTH").toString();
+            parameters.put("pm_to_month", request.getParameter("TO_MONTH"));
+        }
 
-		parameters.put("pm_filter", filterparam);
+        if (request.getParameter("QFROM_DT") != null && !request.getParameter("QFROM_DT").isEmpty()) {
+            Date FROM_DATE = CommonDateDao.convertDateAD(request.getParameter("QFROM_DT"));
+            parameters.put("pm_frm_dt", FROM_DATE);
 
-		return parameters;
+            filterparam = filterparam + " From Date : " + request.getParameter("QFROM_DT").toString();
+        } else if (request.getParameter("QFROM_DT") == null || request.getParameter("QFROM_DT").isEmpty()) {
+            Date FROM_DATE = new Date();
+            parameters.put("pm_frm_dt", FROM_DATE);
 
-	}
+            //IF REPORT IS SpInvoiceRep DO NOT SHOW FROM TODAY
+            if (!(request.getParameter("reportname").equals("SpInvoiceRep"))) {
+                filterparam = filterparam + " From Today ";
+            }
+        }
+
+        if (request.getParameter("QTO_DT") != null && !request.getParameter("QTO_DT").isEmpty()) {
+            Date TO_DATE = CommonDateDao.convertDateAD(request.getParameter("QTO_DT"));
+            parameters.put("pm_to_dt", TO_DATE);
+            filterparam = filterparam + " To Date : " + request.getParameter("QTO_DT").toString();
+        } else if (request.getParameter("QTO_DT") == null || request.getParameter("QTO_DT").isEmpty()) {
+            Date TO_DATE = new Date();
+            parameters.put("pm_to_dt", TO_DATE);
+            //IF REPORT IS SpInvoiceRep DO NOT SHOW FROM TODAY
+            //System.out.println(request.getParameter("reportname"));
+            if (!(request.getParameter("reportname").equals("SpInvoiceRep"))) {
+                filterparam = filterparam + " To Date : Till Today";
+            }
+        }
+
+        parameters.put("pm_filter", filterparam);
+
+        return parameters;
+
+    }
 
 }

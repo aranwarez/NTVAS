@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PartySalesDetConsolidateRep" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="15"/>
+	<property name="ireport.x" value="335"/>
 	<property name="ireport.y" value="2"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -59,7 +59,7 @@ order by trans_no]]>
 	<variable name="sp_tsc_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$F{TSC_AMT}]]></variableExpression>
 	</variable>
-	<variable name="sp_total_amt" class="java.math.BigDecimal" resetType="None">
+	<variable name="sp_total_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
 		<variableExpression><![CDATA[$F{TOTAL_AMT}]]></variableExpression>
 	</variable>
 	<variable name="sp_revenue_amt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">

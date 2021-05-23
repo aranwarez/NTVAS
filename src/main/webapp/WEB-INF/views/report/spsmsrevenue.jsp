@@ -186,6 +186,9 @@
                                                         <option value="SmsAlertRevenue">SMS Alert Revenue</option>
                                                         <option value="SharingShortCodeExtraMTRevenue">Sharing Short Code Extra MT Revenue</option>
                                                         <option value="NonSharingShortCodeExtraMTRevenue">Non Sharing Short Code Extra MT Revenue</option>
+														<option value="VasSmsMoRevenueRepSummary">SMS MO Revenue Report</option>
+														<option value="VasSmsExtraMtRevenueRepSummary">SMS Extra MT Debtors Report</option>
+														<option value="VasDebtorsRevenueRepSummary">Overall VAS Debtors Report</option>
                                                     </select>
                                                 </td>
                                             </tr>
