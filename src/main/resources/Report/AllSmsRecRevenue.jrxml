@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SmsAlertRevenue" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="65"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -133,6 +133,24 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 	<variable name="sp_tot_amt_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Year_month" calculation="Sum">
 		<variableExpression><![CDATA[$V{tot_amt}]]></variableExpression>
 	</variable>
+	<variable name="sp_mo_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Year_month" calculation="Sum">
+		<variableExpression><![CDATA[$F{MO1NT}]]></variableExpression>
+	</variable>
+	<variable name="sp_mt_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Year_month" calculation="Sum">
+		<variableExpression><![CDATA[$F{MT1NT}]]></variableExpression>
+	</variable>
+	<variable name="sp_mo" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{MO1NT}]]></variableExpression>
+	</variable>
+	<variable name="sp_mt" class="java.math.BigDecimal" resetType="Group" resetGroup="SP_CODE" calculation="Sum">
+		<variableExpression><![CDATA[$F{MT1NT}]]></variableExpression>
+	</variable>
+	<variable name="gt_mo" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MO1NT}]]></variableExpression>
+	</variable>
+	<variable name="gt_mt" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{MT1NT}]]></variableExpression>
+	</variable>
 	<group name="SP_CODE" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{S_NO}+$F{SMS_TYPE}]]></groupExpression>
 		<groupHeader>
@@ -256,11 +274,25 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 					<textFieldExpression><![CDATA[$V{sp_tot_amt}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="1" y="1" width="169" height="15" uuid="3c0fb093-cf08-4fba-954c-e371d17e60e2"/>
+					<reportElement x="1" y="1" width="75" height="15" uuid="3c0fb093-cf08-4fba-954c-e371d17e60e2"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{S_NO}+" Total:"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="126" y="1" width="46" height="15" uuid="633bedf5-49c7-4bf2-9731-79581bb8c6e1"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sp_mt}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="79" y="1" width="46" height="15" uuid="f61c3512-4b6b-4c95-9778-1b299e67b5ba"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sp_mo}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -322,11 +354,25 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 					<textFieldExpression><![CDATA[$V{sp_tot_amt_1}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="2" y="0" width="169" height="15" uuid="0ce5c646-154f-49bb-9af7-c71209d21b8f"/>
+					<reportElement x="2" y="0" width="74" height="15" uuid="0ce5c646-154f-49bb-9af7-c71209d21b8f"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{ESME_CODE}+" Total:"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="79" y="-1" width="46" height="15" uuid="2fa66aa2-2aa7-4b5d-a335-08a4062835da"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sp_mo_1}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="126" y="-1" width="46" height="15" uuid="3a584884-779b-49b8-87e9-4c7487eb5092"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sp_mt_1}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -553,12 +599,26 @@ order by  s_no, sms_type,  esme_code,imp_year, imp_month]]>
 				<textFieldExpression><![CDATA[$V{gt_tot_amt}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="2" y="1" width="108" height="15" uuid="3ba82918-fec6-4968-b81f-a22fdfceda21"/>
+				<reportElement x="2" y="1" width="56" height="15" uuid="3ba82918-fec6-4968-b81f-a22fdfceda21"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grand Total:]]></text>
 			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="79" y="3" width="46" height="15" uuid="853e2490-e41a-4232-bf19-dd6f38452d49"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{gt_mo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="126" y="3" width="46" height="15" uuid="d1a3564f-8930-41a9-a572-baff35577856"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{gt_mt}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

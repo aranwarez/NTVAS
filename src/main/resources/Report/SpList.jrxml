@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SpList" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="249"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -128,7 +128,7 @@ order by sp_code]]>
 				<reportElement x="0" y="17" width="802" height="1" uuid="de28f932-ee63-4280-ab82-54b5210a4bd7"/>
 			</line>
 			<staticText>
-				<reportElement x="1" y="0" width="91" height="18" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
+				<reportElement x="32" y="0" width="60" height="18" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
@@ -197,6 +197,13 @@ order by sp_code]]>
 				</textElement>
 				<text><![CDATA[Terminate Dt.]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="30" height="18" uuid="5727e038-338a-4144-97ed-5084c7e5d6b4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S.No.]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
@@ -251,7 +258,7 @@ order by sp_code]]>
 				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="1" y="0" width="91" height="15" uuid="01490fb8-ca24-40ee-86c0-ae69afae6e51"/>
+				<reportElement x="32" y="0" width="60" height="15" uuid="01490fb8-ca24-40ee-86c0-ae69afae6e51"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
@@ -270,6 +277,13 @@ order by sp_code]]>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SP_CONTRACT_TER_DT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="31" height="15" uuid="179db13c-44a8-4940-92a2-11882b8d0d0b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

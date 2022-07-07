@@ -89,7 +89,7 @@
                             <td>
                                 <label for="amt">Amount.</label> 
                                 <input style="width: 380px;" class="form-control" type="text" name="AMT" id="AMT"
-                                      readonly="readonly" placeholder="Enter Amount"> 
+                                       placeholder="Enter Amount"> 
                             </td>
                             <td>
                                 <label for="Createby">Create by</label> 

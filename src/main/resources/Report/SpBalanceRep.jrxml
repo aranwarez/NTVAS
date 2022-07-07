@@ -2,7 +2,22 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EmpCashBalRep" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="37"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.1" value="pageHeader"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.3" value="lastPageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.background" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.graphics" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type=true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows=true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns=true"/>
+	<property name="net.sf.jasperreports.export.xls.collapse.row.span" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.page.margins=true"/>
+	<property name="net.sf.jasperreports.export.xls.one.page.per.sheet=true"/>
+	<property name="net.sf.jasperreports.export.xls.wrap.text" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.column.width.ratio" value="1.10f"/>
+	<property name="net.sf.jasperreports.export.xls.auto.fit.column" value="true"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -18,7 +33,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT s_no, (SELECT sp_name FROM m_sp WHERE sp_code=a.s_no) sp_name,
-sum(total_amt) bal_amt FROM vw_ledger a
+sum(dr_cr_flag*abs(total_amt)) bal_amt FROM vw_ledger a
 WHERE s_no= nvl($P{pm_sp_code},s_no)
 AND service_code=nvl($P{pm_service},service_code)
 AND trans_dt<=$P{pm_to_dt}
@@ -41,14 +56,14 @@ order by s_no]]>
 	<pageHeader>
 		<band height="72" splitType="Stretch">
 			<textField>
-				<reportElement x="91" y="0" width="366" height="15" uuid="ecda1a80-d00b-4120-b58b-ce3954cc119c"/>
+				<reportElement x="128" y="0" width="308" height="15" uuid="ecda1a80-d00b-4120-b58b-ce3954cc119c"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pm_comp_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="92" y="15" width="365" height="15" uuid="beba2023-b3be-4748-a66e-a41b2c2b4206"/>
+				<reportElement x="128" y="15" width="308" height="15" uuid="beba2023-b3be-4748-a66e-a41b2c2b4206"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" isBold="true" isItalic="false"/>
 				</textElement>
@@ -65,29 +80,29 @@ order by s_no]]>
 				<textFieldExpression><![CDATA[$P{pm_filter}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="48" y="30" width="61" height="15" uuid="ead12e63-bd7f-47a0-8513-9a70fd1a1653"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="59" y="29" width="70" height="15" uuid="ead12e63-bd7f-47a0-8513-9a70fd1a1653"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pm_user}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="2" y="30" width="43" height="15" uuid="4cc6cc3c-93d0-428f-8ece-970e4b062947"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="1" y="29" width="58" height="15" uuid="4cc6cc3c-93d0-428f-8ece-970e4b062947"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Print By:]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="473" y="29" width="81" height="15" uuid="23b28827-a743-41b4-8aa1-e3ef9be971db"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
+				<reportElement x="486" y="29" width="68" height="15" uuid="23b28827-a743-41b4-8aa1-e3ef9be971db"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="436" y="30" width="40" height="15" uuid="8d00eece-6d5a-48e3-ace6-3dcfcb2b84aa"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="436" y="29" width="50" height="15" uuid="8d00eece-6d5a-48e3-ace6-3dcfcb2b84aa"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Print Dt:]]></text>
@@ -96,7 +111,7 @@ order by s_no]]>
 				<reportElement x="0" y="49" width="556" height="1" uuid="056c391d-00f9-4b00-8fdb-f821376a5a02"/>
 			</line>
 			<staticText>
-				<reportElement x="109" y="31" width="328" height="15" uuid="808cb199-a0d1-4f44-a467-918c9cb496e4"/>
+				<reportElement x="128" y="29" width="308" height="15" uuid="808cb199-a0d1-4f44-a467-918c9cb496e4"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" isBold="true"/>
 				</textElement>
@@ -107,21 +122,21 @@ order by s_no]]>
 	<columnHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="0" width="44" height="15" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
+				<reportElement x="59" y="1" width="70" height="15" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="437" y="1" width="104" height="15" uuid="f8948568-f1d5-4f0d-a600-8e7377b69232"/>
+				<reportElement x="383" y="1" width="104" height="15" uuid="f8948568-f1d5-4f0d-a600-8e7377b69232"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Balance Amt.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="1" width="249" height="15" uuid="4b6e171f-1ea6-4a6c-aa55-7b31fc0abe40"/>
+				<reportElement x="129" y="1" width="254" height="15" uuid="4b6e171f-1ea6-4a6c-aa55-7b31fc0abe40"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
@@ -130,37 +145,51 @@ order by s_no]]>
 			<line>
 				<reportElement x="0" y="17" width="556" height="1" uuid="de28f932-ee63-4280-ab82-54b5210a4bd7"/>
 			</line>
+			<staticText>
+				<reportElement x="1" y="1" width="58" height="15" uuid="95665ca8-17f9-4a7e-b05b-faf1d7f3ee95"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S.No.]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="437" y="1" width="104" height="15" uuid="605d0156-219c-4759-bf2d-27e66ffb3aca"/>
+				<reportElement x="383" y="1" width="104" height="15" uuid="605d0156-219c-4759-bf2d-27e66ffb3aca"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{BAL_AMT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="1" width="43" height="15" uuid="d197ff70-85ac-4f8a-a3cb-e5ba39440e5e"/>
+				<reportElement x="59" y="1" width="70" height="15" uuid="d197ff70-85ac-4f8a-a3cb-e5ba39440e5e"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{S_NO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="131" y="1" width="254" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
+				<reportElement x="129" y="1" width="254" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SP_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="1" width="58" height="15" uuid="7925aac7-76ef-4a38-b816-6bafd8e820fc"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="23" splitType="Stretch">
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="437" y="2" width="104" height="15" uuid="538af41b-a0ee-42cd-905c-f06466d1870b"/>
+				<reportElement x="383" y="2" width="104" height="15" uuid="538af41b-a0ee-42cd-905c-f06466d1870b"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
@@ -173,7 +202,7 @@ order by s_no]]>
 				<reportElement x="0" y="17" width="554" height="1" uuid="b0500689-932c-47e6-b6cd-69f0086ad854"/>
 			</line>
 			<staticText>
-				<reportElement x="1" y="2" width="129" height="15" uuid="33fb5013-80dc-482a-8ee5-0382d5fff733"/>
+				<reportElement x="1" y="2" width="58" height="15" uuid="33fb5013-80dc-482a-8ee5-0382d5fff733"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>

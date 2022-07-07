@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BankLedgerRep" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="110"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="pm_cc_code" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -30,8 +30,8 @@
 DECODE(service_code||item_code||sharing_type,'SMS'||'EXTRAMT'||'Y',item_code||'(Sharing)','SMS'||'EXTRAMT'||'N',item_code||'(NonSharing)',
 'SMSALERT'||'EXTRAMT'||'N','SMS Alert', item_code) item_code,
 dr_amt, cr_amt, (dr_amt-cr_amt) bal_amt, remarks, create_by, create_dt,
-nvl((SELECT sum(total_amt) FROM vw_ledger
-where s_no=a.s_no AND item_code=a.item_code AND trans_dt<$P{pm_frm_dt}
+nvl((SELECT sum(dr_cr_flag*abs(total_amt)) FROM vw_ledger
+where s_no=a.s_no AND item_code=nvl($P{pm_item_code},item_code) AND trans_dt<$P{pm_frm_dt}
 AND post_flag='Y'),0) opening_bal
 FROM
 (select s_no, trans_type, trans_no, trans_dt, imp_year, imp_month, item_code,
@@ -53,7 +53,8 @@ AND item_code=nvl($P{pm_item_code},item_code)
 AND trans_dt between $P{pm_frm_dt} and $P{pm_to_dt}
 AND dr_cr_flag=-1
 AND post_flag='Y'
-ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
+ORDER BY trans_dt, create_dt, dr_cr_flag desc) a
+WHERE dr_amt>0 or  cr_amt>0]]>
 	</queryString>
 	<field name="S_NO" class="java.lang.String"/>
 	<field name="SP_NAME" class="java.lang.String"/>
@@ -86,35 +87,35 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 					<reportElement x="1" y="15" width="555" height="1" uuid="a0d299bb-b3a1-4e94-b6b6-daefd67a321c"/>
 				</line>
 				<staticText>
-					<reportElement x="46" y="16" width="80" height="15" uuid="4b6e171f-1ea6-4a6c-aa55-7b31fc0abe40"/>
+					<reportElement x="81" y="16" width="80" height="15" uuid="4b6e171f-1ea6-4a6c-aa55-7b31fc0abe40"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[TransNo.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="257" y="16" width="62" height="15" uuid="f8948568-f1d5-4f0d-a600-8e7377b69232"/>
+					<reportElement x="268" y="16" width="62" height="15" uuid="f8948568-f1d5-4f0d-a600-8e7377b69232"/>
 					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Dr Amt.]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="384" y="16" width="69" height="15" uuid="b680824c-5f31-44ec-8f51-7db8963b0ed2"/>
+					<reportElement x="395" y="16" width="69" height="15" uuid="b680824c-5f31-44ec-8f51-7db8963b0ed2"/>
 					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Balance]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="1" y="15" width="44" height="15" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
+					<reportElement x="36" y="15" width="44" height="15" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Date]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="320" y="16" width="62" height="15" uuid="c411f6a5-7913-4e3a-853c-12a3f7abb764"/>
+					<reportElement x="331" y="16" width="62" height="15" uuid="c411f6a5-7913-4e3a-853c-12a3f7abb764"/>
 					<textElement textAlignment="Right">
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -124,7 +125,7 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 					<reportElement x="1" y="30" width="555" height="1" uuid="de28f932-ee63-4280-ab82-54b5210a4bd7"/>
 				</line>
 				<staticText>
-					<reportElement x="127" y="16" width="128" height="15" uuid="8a6d7d2b-40f0-49b0-a014-b819c9ce5795"/>
+					<reportElement x="162" y="16" width="104" height="15" uuid="8a6d7d2b-40f0-49b0-a014-b819c9ce5795"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -157,6 +158,13 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Remarks]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="15" width="35" height="15" uuid="06fbafda-5653-4139-89a6-ea38f422b3db"/>
+					<textElement>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[S.No.]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -256,49 +264,49 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="257" y="1" width="62" height="15" uuid="605d0156-219c-4759-bf2d-27e66ffb3aca"/>
+				<reportElement x="268" y="1" width="62" height="15" uuid="605d0156-219c-4759-bf2d-27e66ffb3aca"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DR_AMT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="320" y="1" width="62" height="15" uuid="0b5e120e-f9bb-403c-bc24-19c4359ddcf1"/>
+				<reportElement x="331" y="1" width="62" height="15" uuid="0b5e120e-f9bb-403c-bc24-19c4359ddcf1"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CR_AMT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="yyyy/MM/dd">
-				<reportElement x="1" y="1" width="44" height="15" uuid="d197ff70-85ac-4f8a-a3cb-e5ba39440e5e"/>
+				<reportElement x="36" y="1" width="44" height="15" uuid="d197ff70-85ac-4f8a-a3cb-e5ba39440e5e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NEP_TRANS_DT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="">
-				<reportElement x="63" y="1" width="63" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
+				<reportElement x="98" y="1" width="63" height="15" uuid="273567e5-00ca-4e31-ae9d-dcffd6041a98"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TRANS_NO}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0">
-				<reportElement x="127" y="1" width="128" height="15" uuid="93030eb3-d539-4205-9fd2-a184c3c9e527"/>
+				<reportElement x="162" y="1" width="104" height="15" uuid="93030eb3-d539-4205-9fd2-a184c3c9e527"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ITEM_CODE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="384" y="1" width="69" height="15" uuid="9ba47b97-5603-49cd-96ed-a614348d93f5"/>
+				<reportElement x="395" y="1" width="69" height="15" uuid="9ba47b97-5603-49cd-96ed-a614348d93f5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="true"/>
+					<font fontName="Times New Roman" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum_cum}.add($F{OPENING_BAL})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="46" y="1" width="17" height="15" uuid="079af708-a046-4525-8d6c-1cb309a19ca6"/>
+				<reportElement x="81" y="1" width="17" height="15" uuid="079af708-a046-4525-8d6c-1cb309a19ca6"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
@@ -310,6 +318,13 @@ ORDER BY trans_dt, create_dt, dr_cr_flag desc) a]]>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{REMARKS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="2" y="1" width="34" height="15" uuid="018b4c3b-5c82-4cfd-9932-24b141fddf15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PartySalesSumConsolidateRep" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="266"/>
-	<property name="ireport.y" value="81"/>
+	<property name="ireport.x" value="32"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -78,7 +78,7 @@ order by sp_name]]>
 		<groupHeader>
 			<band height="54">
 				<staticText>
-					<reportElement x="5" y="1" width="104" height="15" uuid="33d30ca9-1e9c-4cdf-86eb-ae67c80280da"/>
+					<reportElement x="2" y="1" width="79" height="15" uuid="33d30ca9-1e9c-4cdf-86eb-ae67c80280da"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -105,7 +105,7 @@ order by sp_name]]>
 					<reportElement x="0" y="51" width="802" height="1" uuid="1614080b-b827-4b69-9e84-72789c712c8a"/>
 				</line>
 				<staticText>
-					<reportElement x="2" y="27" width="68" height="15" uuid="5b1456d6-3b75-4212-a0cb-7a572fb00504"/>
+					<reportElement x="49" y="27" width="68" height="15" uuid="5b1456d6-3b75-4212-a0cb-7a572fb00504"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8" isBold="true"/>
 					</textElement>
@@ -126,12 +126,19 @@ order by sp_name]]>
 					<text><![CDATA[Total Amt]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="129" y="1" width="346" height="15" uuid="12a290b4-9cda-4142-b4a9-34844e38542a"/>
+					<reportElement x="83" y="1" width="346" height="15" uuid="12a290b4-9cda-4142-b4a9-34844e38542a"/>
 					<textElement>
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{CC_CODE}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="2" y="27" width="40" height="15" uuid="ceacb361-1f88-48a1-be8a-e2c4d9d27cf3"/>
+					<textElement>
+						<font fontName="Times New Roman" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[S.No.]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -259,7 +266,7 @@ order by sp_name]]>
 	<detail>
 		<band height="17" splitType="Stretch">
 			<textField>
-				<reportElement x="2" y="0" width="346" height="15" uuid="053756a4-2c35-46de-8ac9-ae33502b0ab2"/>
+				<reportElement x="48" y="0" width="300" height="15" uuid="053756a4-2c35-46de-8ac9-ae33502b0ab2"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
@@ -292,6 +299,13 @@ order by sp_name]]>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{REVENUE_AMT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="40" height="15" uuid="1e29cd30-9972-4058-bcdb-0b3d5a31fce7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SP_CODE_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
