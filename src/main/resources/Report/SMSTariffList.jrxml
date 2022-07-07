@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SMSTariffList" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a36392-f148-43c4-8b24-e189d16e7ff9">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="249"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="pm_to_dt" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -128,120 +128,134 @@ ORDER BY 2,3,5]]>
 				<reportElement x="0" y="17" width="802" height="1" uuid="de28f932-ee63-4280-ab82-54b5210a4bd7"/>
 			</line>
 			<staticText>
-				<reportElement x="1" y="0" width="91" height="18" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
+				<reportElement x="44" y="0" width="91" height="18" uuid="c6f724a2-7b84-4c01-992e-3fa12c339037"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Service]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="419" y="0" width="56" height="18" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
+				<reportElement x="462" y="0" width="56" height="18" uuid="4b3ca189-5451-4858-a65d-200cd64a019a"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Rate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="94" y="0" width="83" height="18" uuid="5b1456d6-3b75-4212-a0cb-7a572fb00504"/>
+				<reportElement x="137" y="0" width="83" height="18" uuid="5b1456d6-3b75-4212-a0cb-7a572fb00504"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Package Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="179" y="-1" width="176" height="18" uuid="24e5df4d-3eae-4d27-9e57-4ee4eef8fadf"/>
+				<reportElement x="222" y="-1" width="176" height="18" uuid="24e5df4d-3eae-4d27-9e57-4ee4eef8fadf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Package]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="0" width="61" height="18" uuid="8df1acd8-8ffc-49cf-8ff6-2ce316e98fd1"/>
+				<reportElement x="398" y="0" width="61" height="18" uuid="8df1acd8-8ffc-49cf-8ff6-2ce316e98fd1"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Effective Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="480" y="0" width="74" height="18" uuid="4d827db1-409e-440f-a78c-3b51566f6ab8"/>
+				<reportElement x="523" y="0" width="74" height="18" uuid="4d827db1-409e-440f-a78c-3b51566f6ab8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[From Range]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="641" y="0" width="62" height="16" uuid="31bdcee2-18ea-4c90-bbe9-d1e4f7a2163c"/>
+				<reportElement x="684" y="0" width="62" height="16" uuid="31bdcee2-18ea-4c90-bbe9-d1e4f7a2163c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MO:MT Ratio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="566" y="0" width="67" height="18" uuid="c10db7b0-06cc-4bdd-94fd-30f3f0d4d650"/>
+				<reportElement x="609" y="0" width="67" height="18" uuid="c10db7b0-06cc-4bdd-94fd-30f3f0d4d650"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[To Range]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="36" height="18" uuid="ae5e6a84-ba49-44c1-a326-7f6deff998d5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S.No.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="17" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="94" y="0" width="83" height="15" uuid="252925c6-bf5d-433e-a63e-d51c8cccd804"/>
+				<reportElement x="136" y="0" width="83" height="15" uuid="252925c6-bf5d-433e-a63e-d51c8cccd804"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PACKAGE_TYPE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="178" y="0" width="178" height="15" uuid="358321f5-4b42-44e6-910e-0abccf16affa"/>
+				<reportElement x="220" y="0" width="178" height="15" uuid="358321f5-4b42-44e6-910e-0abccf16affa"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="421" y="0" width="54" height="15" uuid="2e1ec8af-2939-414c-85e8-651353469345"/>
+				<reportElement x="463" y="0" width="54" height="15" uuid="2e1ec8af-2939-414c-85e8-651353469345"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RATE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="356" y="1" width="61" height="15" uuid="ffd1ffcd-9a13-49a9-913b-5132fe9293a8"/>
+				<reportElement x="398" y="1" width="61" height="15" uuid="ffd1ffcd-9a13-49a9-913b-5132fe9293a8"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{EFFECTIVE_DT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="1" y="0" width="91" height="15" uuid="01490fb8-ca24-40ee-86c0-ae69afae6e51"/>
+				<reportElement x="43" y="0" width="91" height="15" uuid="01490fb8-ca24-40ee-86c0-ae69afae6e51"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SERVICE_CODE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="479" y="1" width="75" height="15" uuid="712993af-9f60-426d-80e9-340b0e50a60d"/>
+				<reportElement x="521" y="1" width="75" height="15" uuid="712993af-9f60-426d-80e9-340b0e50a60d"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RANGE_FROM}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="641" y="1" width="62" height="15" uuid="1ff98a70-b3bc-46ad-b9fa-a5eb546f1ab8"/>
+				<reportElement x="683" y="1" width="62" height="15" uuid="1ff98a70-b3bc-46ad-b9fa-a5eb546f1ab8"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MO_MT_RATIO}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
-				<reportElement x="566" y="1" width="68" height="15" uuid="6a4c30d4-489d-4022-abde-19a17f23c7a1"/>
+				<reportElement x="608" y="1" width="68" height="15" uuid="6a4c30d4-489d-4022-abde-19a17f23c7a1"/>
 				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RANGE_TO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="2" y="0" width="36" height="15" uuid="01a0f884-c510-470d-951a-961778e7ea78"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
