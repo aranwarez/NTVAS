@@ -197,7 +197,8 @@ public class ReportController {
             parameters.put("pm_frm_dt", FROM_DATE);
 
             //IF REPORT IS SpInvoiceRep DO NOT SHOW FROM TODAY
-            if (!(request.getParameter("reportname").equals("SpInvoiceRep"))) {
+            //if (!(request.getParameter("reportname").equals("SpInvoiceRep"))) {
+            if (request.getParameter("datenotdisplay") == null || !(request.getParameter("datenotdisplay").equals("1"))) {    
                 filterparam = filterparam + " From Today ";
             }
         }
@@ -211,9 +212,14 @@ public class ReportController {
             parameters.put("pm_to_dt", TO_DATE);
             //IF REPORT IS SpInvoiceRep DO NOT SHOW FROM TODAY
             //System.out.println(request.getParameter("reportname"));
-            if (!(request.getParameter("reportname").equals("SpInvoiceRep"))) {
+            
+            if (request.getParameter("datenotdisplay") == null || !(request.getParameter("datenotdisplay").equals("1"))) {
                 filterparam = filterparam + " To Date : Till Today";
             }
+            
+//            if (!(request.getParameter("reportname").equals("SpInvoiceRep"))) {
+//                filterparam = filterparam + " To Date : Till Today";
+//            }
         }
 
         parameters.put("pm_filter", filterparam);

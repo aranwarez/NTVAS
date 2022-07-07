@@ -93,6 +93,7 @@
                                     <form method="post">
                                         <table class="table-condensed">
                                             <tr>
+                                                <input type="hidden" name="datenotdisplay" value="1">
                                                 <c:forEach var="DAT" items="${Date_list}">
                                                     <td>From Year</td>
                                                     <td><input style="width: 80px;" class="form-control"
@@ -169,6 +170,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                
                                             <tr><td>Export Type</td><td><select name="reporttype"><option value="XLS">XLS</option>
                                                         <option value="pdf">PDF</option>
                                                     </select></td><td></td></tr>

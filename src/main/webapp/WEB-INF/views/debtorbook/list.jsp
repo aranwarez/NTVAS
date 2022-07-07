@@ -135,6 +135,7 @@
 											<th>Rate</th>
 											<th>Revenue</th>
 											<th>TSC</th>
+                                                                                        <th>OT</th>
 											<th>VAT</th>
 											<th>Total</th>
 											
@@ -149,7 +150,7 @@
 											<th id="sumrev">-</th>
 
 											<th id="sumtsc">-</th>
-
+                                                                                        <th id="sumown">-</th>    
 											<th id="sumvat">-</th>
 											<th id="sumtot">-</th>
 											

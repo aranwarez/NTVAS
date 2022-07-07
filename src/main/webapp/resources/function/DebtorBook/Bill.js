@@ -5,6 +5,7 @@ var itemlist;
 var rowcount = 0;
 var globaltsc;
 var globalvat;
+var globalown;
 
 $(document).ready(function() {
 
@@ -131,6 +132,13 @@ function getTaxableRate() {
 
 		globalvat = Number(response);
 	});
+        
+        $.get('../cashsale/getitemtariff', {
+		Itemcode : 'OWN'
+	}, function(response) {
+
+		globalown = Number(response);
+	});
 
 }
 
@@ -161,6 +169,7 @@ function additem() {
 			+ '" style="text-align:right;"type="number" min="0" placeholder="Rate" onchange="calc(this)" onfocus="focusFunction('
 			+ '\'' + rowcount + '\'' + ')"  onblur="blurFunction(' + '\''
 			+ rowcount + '\'' + ')"><input id="tscflag' + rowcount
+			+ '" type="hidden"><input id="ownflag' + rowcount
 			+ '" type="hidden"><input id="vatflag' + rowcount
 			+ '" type="hidden">' + '<input id="catflag' + rowcount
 			+ '" type="hidden">';
@@ -182,6 +191,13 @@ function additem() {
 			+ rowcount
 			+ '" style="text-align:right;"type="number" min="0" class="tscclass"></span></td>';
 	appendrow = appendrow
+			+ '<td><span id="own'
+			+ rowcount
+			+ '" style="text-align:right;"type="number" min="0" class="ownclass"></span></td>';
+	
+    
+    
+    appendrow = appendrow
 			+ '<td><span id="vat'
 			+ rowcount
 			+ '" style="text-align:right;"type="number" min="0" class="vatclass"></span></td>';
@@ -222,8 +238,10 @@ function itemchange(a) {
 			$.get('../cashsale/getitemtariff', {
 				Itemcode : a.value
 			}, function(response) {
+                         //   console.log(value);
 				$('#tscflag' + itemid).val(value.TAXABLE_AMT);
 				$('#vatflag' + itemid).val(value.VATABLE_AMT);
+                                $('#ownflag' + itemid).val(value.OWN_AMT);
 				$('#catflag' + itemid).val(value.CATEGORY_CODE);
 				if (value.CATEGORY_CODE == "SERVICE" || value.CATEGORY_CODE == "BILLITEM") {
 					$('#rate' + itemid).hide();
@@ -259,10 +277,13 @@ function calc(a) {
 	//temp variable need to revert to global again
 	var temptsc=globaltsc;
 	var tempvat=globalvat;
+        var tempown=globalown;
 	if(Number($('#tscflag' + itemid).val())==0)
 		globaltsc=0;
-	if(Number($('#tscflag' + itemid).val())==0)
-		globaltsc=0;
+	if(Number($('#vatflag' + itemid).val())==0)
+		globalvat=0;
+	if(Number($('#ownflag' + itemid).val())==0)
+		globalown=0;
 	
 	// for billing item type
 	
@@ -292,12 +313,24 @@ function calc(a) {
 	}
 
 	$('#tsc' + itemid).html(tsc);
-	var vat = 0;
+	//for OT new req
+        var own = 0;
+	if ($('#ownflag' + itemid).val() != 0) {
+		own = globalown * 0.01 * Number(tsc + (rate * quantity));
+		own = Number(own.toFixed(2));
+	}
+
+	$('#own' + itemid).html(own);
+        
+        
+        //---
+        
+        var vat = 0;
 	if ($('#vatflag' + itemid).val() != 0) {
-		vat = globalvat * 0.01 * Number(tsc + (rate * quantity));
+		vat = globalvat * 0.01 * Number(tsc +own+ (rate * quantity));
 		vat = Number(vat.toFixed(2));
 	}
-	var rev = Number(rate * quantity) + Number(tsc) + Number(vat);
+	var rev = Number(rate * quantity) + Number(tsc) + Number(vat)+Number(own);
 	
 	rev = Number(rev.toFixed(2));
 	$('#vat' + itemid).html(vat);
@@ -312,6 +345,7 @@ function calc(a) {
 	//reverting original global tsc vat from temp
 	globaltsc=temptsc;
 	globalvat=tempvat;
+        globalown=tempown;
 }
 
 function revcalc(a){
@@ -321,10 +355,13 @@ function revcalc(a){
 	//temp variable need to revert to global again
 	var temptsc=globaltsc;
 	var tempvat=globalvat;
+        var tempown=globalown;
 	if(Number($('#tscflag' + itemid).val())==0)
 		globaltsc=0;
-	if(Number($('#tscflag' + itemid).val())==0)
-		globaltsc=0;
+	if(Number($('#vatflag' + itemid).val())==0)
+		globalvat=0;
+	if(Number($('#ownflag' + itemid).val())==0)
+		globalown=0;
 	
 	
 
@@ -346,11 +383,13 @@ function revcalc(a){
 	//reverting original global tsc vat from temp
 	globaltsc=temptsc;
 	globalvat=tempvat;
+        globalvat=tempown;
 }
 
 function getsumoffooter() {
 	tfooter('revclass', 'sumrev', null);
 	tfooter('tscclass', 'sumtsc', null);
+        tfooter('ownclass', 'sumown', null);
 	tfooter('vatclass', 'sumvat', null);
 	tfooter('totclass', 'sumtot', null);
 	number2text($('#sumtot').html());
@@ -400,6 +439,7 @@ function post() {
 		arraydata.QUANTITY = $('#quan' + rowid).val();
 		arraydata.REV = $('#rev' + rowid).html();
 		arraydata.TSC = $('#tsc' + rowid).html();
+                arraydata.OWN = $('#own' + rowid).html();
 		arraydata.VAT = $('#vat' + rowid).html();
 		temparray.push(arraydata);
 		
