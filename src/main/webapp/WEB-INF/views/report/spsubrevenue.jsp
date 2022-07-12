@@ -93,6 +93,7 @@
                                     <form method="post">
                                         <table class="table-condensed">
                                             <tr>
+                                                <input type="hidden" name="datenotdisplay" value="1">
                                                 <c:forEach var="DAT" items="${Date_list}">
                                                     <td>From Year</td>
                                                     <td><input style="width: 80px;" class="form-control"
