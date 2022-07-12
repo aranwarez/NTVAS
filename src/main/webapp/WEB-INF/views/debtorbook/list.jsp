@@ -240,7 +240,7 @@
 
 	<jsp:include page="${request.contextPath}/footJS"></jsp:include>
 
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.0/math.min.js"></script>
 	<script src="<c:url value="/resources/function/DebtorBook/Bill.js" />"></script>
 	<script
 		src="<c:url value="/resources/function/DebtorBook/Amt2Words.js" />"></script>

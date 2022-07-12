@@ -47,8 +47,8 @@ public class CashSaleDao {
 
 			for (Map<String, Object> obj : myarray) {
 				PreparedStatement pst4 = con.prepareStatement("INSERT INTO VASNTW.SALES_DETAIL\r\n"
-						+ "(TRANS_ID, CC_CODE, TRANS_NO, ITEM_CODE, QTY, RATE, REVENUE_AMT, TSC_AMT, VAT_AMT, CREATE_BY)\r\n"
-						+ "VALUES(SEQ_CASHSALE_TRANS_ID.nextval,?,?,?,?,?,?,?,?,?)");
+						+ "(TRANS_ID, CC_CODE, TRANS_NO, ITEM_CODE, QTY, RATE, REVENUE_AMT, TSC_AMT, VAT_AMT, OWT_AMT, CREATE_BY)\r\n"
+						+ "VALUES(SEQ_CASHSALE_TRANS_ID.nextval,?,?,?,?,?,?,?,?,?,?)");
 
 				pst4.setString(1, CC_CODE);
 				pst4.setString(2, transno);
@@ -58,7 +58,8 @@ public class CashSaleDao {
 				pst4.setString(6, (String) obj.get("REV"));
 				pst4.setString(7, (String) obj.get("TSC"));
 				pst4.setString(8, (String) obj.get("VAT"));
-				pst4.setString(9, USER);
+                                pst4.setString(9, (String) obj.get("OWN"));
+				pst4.setString(10, USER);
 
 				pst4.executeUpdate();
 			}

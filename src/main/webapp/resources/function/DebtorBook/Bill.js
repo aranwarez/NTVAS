@@ -289,17 +289,47 @@ function calc(a) {
 	
 
 	if ($('#catflag' + itemid).val() == 'SERVICE' || $('#catflag' + itemid).val() == 'BILLITEM' ) {
-		var divisor = (1 + (globaltsc / 100) + ((globalvat / 100) * (1 + (globaltsc / 100))));
-		var rev = $('#pamt'+itemid).val()/divisor;
-		tsc= ((globaltsc/100)*rev).toFixed(2);
-		vat =+($('#pamt'+itemid).val())- +rev- +tsc;
-		vat = vat.toFixed(2);
-		rev = rev.toFixed(2);
-		$('#vat' + itemid).html(vat);
-		$('#rev' + itemid).html(rev);
-		$('#tsc' + itemid).html(tsc);
-		// var total=
-		$('#total' + itemid).html(+tsc+ +vat+ +rev);
+//		var divisor = (1 + (globaltsc / 100) + ((globalvat / 100) * (1 + (globaltsc / 100))));
+//		var rev = $('#pamt'+itemid).val()/divisor;
+//		tsc= ((globaltsc/100)*rev).toFixed(2);
+//		vat =+($('#pamt'+itemid).val())- +rev- +tsc;
+//		vat = vat.toFixed(2);
+//		rev = rev.toFixed(2);
+//		$('#vat' + itemid).html(vat);
+//		$('#rev' + itemid).html(rev);
+//		$('#tsc' + itemid).html(tsc);
+//		// var total=
+//		$('#total' + itemid).html(+tsc+ +vat+ +rev);
+
+        //redoing calculation using formula provided by NT
+        //debugger;
+        var paidamt = $('#pamt' + itemid).val();
+        var divisorf = 1 + (globalvat / 100);
+        divisorf = paidamt / divisorf;
+        var divisore = 1 + (globalown / 100);
+        divisore = divisorf / divisore;
+        var divisord = 1 + (globaltsc / 100);
+        divisord = divisore / divisord;
+        var rev = divisord;
+        tsc = divisore - divisord;
+        var own = divisorf - divisore;
+        var vat = paidamt - divisorf;
+        rev = math.round(rev, 2);
+        tsc = math.round(tsc, 2);
+        own = math.round(own, 2);
+        vat = math.add(paidamt, -rev, -tsc, -own);
+        vat = math.round(vat, 2);
+        var totalamt = math.add(rev, tsc, own, vat);
+        totalamt = math.round(totalamt, 2);
+
+        $('#vat' + itemid).html(vat);
+        $('#rev' + itemid).html(rev);
+        $('#own' + itemid).html(own);
+        $('#tsc' + itemid).html(tsc);
+        // var total=
+        $('#total' + itemid).html(totalamt);
+        
+        // till here redooing cal.
 		
 	}
 	else {
