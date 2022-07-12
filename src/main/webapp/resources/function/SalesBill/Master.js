@@ -266,7 +266,9 @@ function editReceipt(code) {
 							.each(
 									response,
 									function(key, value) {
-										var total=value.REVENUE_AMT+value.TSC_AMT+value.VAT_AMT;
+                                                                                var total=math.add(value.REVENUE_AMT,value.TSC_AMT,value.VAT_AMT,value.OWT_AMT);
+                                                                                total=math.round(total,2);
+										//var total=value.REVENUE_AMT+value.TSC_AMT+value.VAT_AMT+value.OWT_AMT;
 										$("#detailtab")
 												.dataTable()
 												.fnAddData(
@@ -277,6 +279,7 @@ function editReceipt(code) {
 																value.RATE,
 																value.REVENUE_AMT,
 																value.TSC_AMT,
+                                                                                                                                value.OWT_AMT,
 																value.VAT_AMT,
 																total
 																 ]);

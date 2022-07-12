@@ -134,8 +134,10 @@
 											<th>Quantity</th>
 											<th>Rate</th>
 											<th>Revenue</th>
-											<th>TSC</th>
-											<th>VAT</th>
+                                                                                        <th>TSC</th>
+											<th>OT</th>
+											
+                                                                                        <th>VAT</th>
 											<th>Total</th>
 											<th>Bal (W/O TAX)</th>
 											<th>Bal (W TAX)</th>
@@ -150,6 +152,7 @@
 											<th id="sumrev">-</th>
 
 											<th id="sumtsc">-</th>
+                                                                                        <th id="sumown">-</th>
 
 											<th id="sumvat">-</th>
 											<th id="sumtot">-</th>
@@ -254,11 +257,12 @@
 
 	<jsp:include page="${request.contextPath}/footJS"></jsp:include>
 
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.0/math.min.js"></script>
 	<script src="<c:url value="/resources/function/SalesBill/Bill.js" />"></script>
 	<script
 		src="<c:url value="/resources/function/SalesBill/Amt2Words.js" />"></script>
 	<script src="<c:url value="/resources/adminltd/js/commonajax.js" />"></script>
+        
 
 
 

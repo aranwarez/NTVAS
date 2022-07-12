@@ -55,6 +55,7 @@
 								<th>Rate</th>
 								<th>Revenue</th>
 								<th>TSC</th>
+                                                                <th>OWN</th>
 								<th>VAT</th>
 								<th>Total</th>
 							</tr>

@@ -5,6 +5,8 @@ var itemlist;
 var rowcount = 0;
 var globaltsc;
 var globalvat;
+var globalown;
+
 
 $(document).ready(function() {
 
@@ -135,6 +137,13 @@ function getTaxableRate() {
 
 		globalvat = Number(response);
 	});
+        
+          $.get('../cashsale/getitemtariff', {
+		Itemcode : 'OWN'
+	}, function(response) {
+
+		globalown = Number(response);
+	});
 
 }
 
@@ -170,6 +179,7 @@ function additem() {
 			+ '" style="text-align:right;"type="number" min="0" placeholder="Rate" onchange="calc(this)" onfocus="focusFunction('
 			+ '\'' + rowcount + '\'' + ')"  onblur="blurFunction(' + '\''
 			+ rowcount + '\'' + ')"><input id="tscflag' + rowcount
+			+ '" type="hidden"><input id="ownflag' + rowcount
 			+ '" type="hidden"><input id="vatflag' + rowcount
 			+ '" type="hidden">' + '<input id="catflag' + rowcount
 			+ '" type="hidden">';
@@ -190,6 +200,10 @@ function additem() {
 			+ '<td><span id="tsc'
 			+ rowcount
 			+ '" style="text-align:right;"type="number" min="0" class="tscclass"></span></td>';
+        appendrow = appendrow
+			+ '<td><span id="own'
+			+ rowcount
+			+ '" style="text-align:right;"type="number" min="0" class="ownclass"></span></td>';        
 	appendrow = appendrow
 			+ '<td><span id="vat'
 			+ rowcount
@@ -241,6 +255,7 @@ function itemchange(a) {
 				Itemcode : a.value
 			}, function(response) {
 				$('#tscflag' + itemid).val(value.TAXABLE_AMT);
+                                $('#ownflag' + itemid).val(value.OWN_AMT);
 				$('#vatflag' + itemid).val(value.VATABLE_AMT);
 				$('#catflag' + itemid).val(value.CATEGORY_CODE);
 				if (value.CATEGORY_CODE == "SERVICE" || value.CATEGORY_CODE == "BILLITEM" || value.CATEGORY_CODE == "DEBBOOK") {
@@ -273,65 +288,102 @@ function itemchange(a) {
 }
 
 function calc(a) {
-	//debugger;
-	var itemid = a.id.substring(4);
-	//Checking for tscflag and vatflag if zero storing globaltscvat to
-	//temp variable need to revert to global again
-	var temptsc=globaltsc;
-	var tempvat=globalvat;
-	if(Number($('#tscflag' + itemid).val())==0)
-		globaltsc=0;
-	if(Number($('#tscflag' + itemid).val())==0)
-		globaltsc=0;
-	
-	// for billing item type
-	
+    //debugger;
+    var itemid = a.id.substring(4);
+    //Checking for tscflag and vatflag if zero storing globaltscvat to
+    //temp variable need to revert to global again
+    var temptsc = globaltsc;
+    var tempvat = globalvat;
+    var tempown = globalown;
+    if (Number($('#tscflag' + itemid).val()) == 0)
+        globaltsc = 0;
+    if (Number($('#tscflag' + itemid).val()) == 0)
+        globaltsc = 0;
+    if (Number($('#ownflag' + itemid).val()) == 0)
+        globalown = 0;
 
-	if ($('#catflag' + itemid).val() == 'SERVICE' || $('#catflag' + itemid).val() == 'BILLITEM' || $('#catflag' + itemid).val() == 'DEBBOOK' ) {
-		var divisor = (1 + (globaltsc / 100) + ((globalvat / 100) * (1 + (globaltsc / 100))));
-		var rev = $('#pamt'+itemid).val()/divisor;
-		tsc= ((globaltsc/100)*rev).toFixed(2);
-		vat =+($('#pamt'+itemid).val())- +rev- +tsc;
-		vat = vat.toFixed(2);
-		rev = rev.toFixed(2);
-		$('#vat' + itemid).html(vat);
-		$('#rev' + itemid).html(rev);
-		$('#tsc' + itemid).html(tsc);
-		// var total=
-		$('#total' + itemid).html(+tsc+ +vat+ +rev);
-		
-	}
-	else {
-	
-	var rate = $('#rate' + itemid).val();
-	var quantity = $('#quan' + itemid).val();
-	var tsc = 0;
-	if ($('#tscflag' + itemid).val() != 0) {
-		tsc = globaltsc * 0.01 * Number(rate) * Number(quantity);
-		tsc = Number(tsc.toFixed(2));
-	}
 
-	$('#tsc' + itemid).html(tsc);
-	var vat = 0;
-	if ($('#vatflag' + itemid).val() != 0) {
-		vat = globalvat * 0.01 * Number(tsc + (rate * quantity));
-		vat = Number(vat.toFixed(2));
-	}
-	var rev = Number(rate * quantity) + Number(tsc) + Number(vat);
-	
-	rev = Number(rev.toFixed(2));
-	$('#vat' + itemid).html(vat);
-	$('#rev' + itemid).html(rate * quantity);
+    // for billing item type
 
-	$('#total' + itemid).html(rev);
-	}
-	// getting sum of footer
-	getsumoffooter();
-	
-	
-	//reverting original global tsc vat from temp
-	globaltsc=temptsc;
-	globalvat=tempvat;
+
+    if ($('#catflag' + itemid).val() == 'SERVICE' || $('#catflag' + itemid).val() == 'BILLITEM' || $('#catflag' + itemid).val() == 'DEBBOOK') {
+
+        //redoing calculation using formula provided by NT
+        //debugger;
+        var paidamt = $('#pamt' + itemid).val();
+        var divisorf = 1 + (globalvat / 100);
+        divisorf = paidamt / divisorf;
+        var divisore = 1 + (globalown / 100);
+        divisore = divisorf / divisore;
+        var divisord = 1 + (globaltsc / 100);
+        divisord = divisore / divisord;
+        var rev = divisord;
+        tsc = divisore - divisord;
+        var own = divisorf - divisore;
+        var vat = paidamt - divisorf;
+        rev = math.round(rev, 2);
+        tsc = math.round(tsc, 2);
+        own = math.round(own, 2);
+        vat = math.add(paidamt, -rev, -tsc, -own);
+        vat = math.round(vat, 2);
+        var totalamt = math.add(rev, tsc, own, vat);
+        totalamt = math.round(totalamt, 2);
+
+        $('#vat' + itemid).html(vat);
+        $('#rev' + itemid).html(rev);
+        $('#own' + itemid).html(own);
+        $('#tsc' + itemid).html(tsc);
+        // var total=
+        $('#total' + itemid).html(totalamt);
+        
+        // till here redooing cal.
+
+    } else {
+
+        var rate = $('#rate' + itemid).val();
+        var quantity = $('#quan' + itemid).val();
+        var tsc = 0;
+        if ($('#tscflag' + itemid).val() != 0) {
+            tsc = globaltsc * 0.01 * Number(rate) * Number(quantity);
+            tsc = Number(tsc.toFixed(2));
+        }
+
+        $('#tsc' + itemid).html(tsc);
+
+        //for OT new req
+        var own = 0;
+        if ($('#ownflag' + itemid).val() != 0) {
+            own = globalown * 0.01 * Number(tsc + (rate * quantity));
+            own = Number(own.toFixed(2));
+        }
+
+        $('#own' + itemid).html(own);
+
+
+        //---
+
+
+        var vat = 0;
+        if ($('#vatflag' + itemid).val() != 0) {
+            vat = globalvat * 0.01 * Number(tsc + own + (rate * quantity));
+            vat = Number(vat.toFixed(2));
+        }
+        var rev = Number(rate * quantity) + Number(tsc) + Number(vat) + Number(own);
+
+        rev = Number(rev.toFixed(2));
+        $('#vat' + itemid).html(vat);
+        $('#rev' + itemid).html(rate * quantity);
+
+        $('#total' + itemid).html(rev);
+    }
+    // getting sum of footer
+    getsumoffooter();
+
+
+    //reverting original global tsc vat from temp
+    globaltsc = temptsc;
+    globalvat = tempvat;
+    globalown = tempown;
 }
 
 function revcalc(a){
@@ -341,11 +393,13 @@ function revcalc(a){
 	//temp variable need to revert to global again
 	var temptsc=globaltsc;
 	var tempvat=globalvat;
+         var tempown=globalown;
 	if(Number($('#tscflag' + itemid).val())==0)
 		globaltsc=0;
-	if(Number($('#tscflag' + itemid).val())==0)
-		globaltsc=0;
-	
+	if(Number($('#vatflag' + itemid).val())==0)
+		globalvat=0;
+	if(Number($('#ownflag' + itemid).val())==0)
+		globalown=0;
 	
 
 	if ($('#catflag' + itemid).val() == 'SERVICE' ) {
@@ -366,11 +420,13 @@ function revcalc(a){
 	//reverting original global tsc vat from temp
 	globaltsc=temptsc;
 	globalvat=tempvat;
+        globalvat=tempown;
 }
 
 function getsumoffooter() {
 	tfooter('revclass', 'sumrev', null);
 	tfooter('tscclass', 'sumtsc', null);
+         tfooter('ownclass', 'sumown', null);
 	tfooter('vatclass', 'sumvat', null);
 	tfooter('totclass', 'sumtot', null);
 
@@ -407,7 +463,7 @@ function post() {
 	var validflag=true;
 	$(".revclass").each(function() {
 		var rowid = (this.id.substring(3));
-		debugger;
+		//debugger;
 		if(isempty($('#rev' + rowid).html()) || Number($('#rev' + rowid).html())<=0 ){
 			alert('Invalid Amount!!!!');
 			$('#pamt' + rowid).focus();
@@ -420,6 +476,7 @@ function post() {
 		arraydata.QUANTITY = $('#quan' + rowid).val();
 		arraydata.REV = $('#rev' + rowid).html();
 		arraydata.TSC = $('#tsc' + rowid).html();
+                arraydata.OWN = $('#own' + rowid).html();
 		arraydata.VAT = $('#vat' + rowid).html();
 		temparray.push(arraydata);
 		
