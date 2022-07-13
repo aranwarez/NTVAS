@@ -266,6 +266,11 @@ function editReceipt(code) {
 							.each(
 									response,
 									function(key, value) {
+                                                                        
+                                                                            if(value.OWT_AMT==null || typeof value.OWT_AMT === 'undefined'){
+                                                                              
+                                                                                value.OWT_AMT=0;
+                                                                            }
                                                                                 var total=math.add(value.REVENUE_AMT,value.TSC_AMT,value.VAT_AMT,value.OWT_AMT);
                                                                                 total=math.round(total,2);
 										//var total=value.REVENUE_AMT+value.TSC_AMT+value.VAT_AMT+value.OWT_AMT;
